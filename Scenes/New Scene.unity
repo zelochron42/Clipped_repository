@@ -694,6 +694,8 @@ MonoBehaviour:
   jumpForce: 9.2
   slowFallSpeed: 2.5
   slideFallSpeed: 1
+  dashForce: 13
+  dashTime: 0.2
   raycastMargin: 0.05
   movementControl: 1
   controlRecoveryRate: 0.015
@@ -703,6 +705,8 @@ MonoBehaviour:
   isSliding: 0
   maxDashes: 1
   remainingDashes: 0
+  maxJumps: 1
+  remainingJumps: 0
 --- !u!4 &4279080184758156321
 Transform:
   m_ObjectHideFlags: 0

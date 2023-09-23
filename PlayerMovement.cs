@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Code to control the player's movement
 /// Written by Joshua Cashmore, 9/15/2023
-/// Last updated 9/17/2023
+/// Last updated 9/22/2023
 /// </summary>
 public class PlayerMovement : MonoBehaviour
 {
@@ -17,6 +17,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpForce;
     [SerializeField] float slowFallSpeed;
     [SerializeField] float slideFallSpeed;
+
+    [SerializeField] float dashForce;
+    [SerializeField] float dashTime;
+
     [SerializeField] float raycastMargin; //how far raycasts extend outside of the player's collider
 
     [SerializeField] float movementControl = 1f;
@@ -36,11 +40,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] int maxDashes;
     [SerializeField] int remainingDashes = 0;
 
+    [SerializeField] int maxJumps;
+    [SerializeField] int remainingJumps = 0;
+
+    float gravityScale;
+
     private void Awake() {
         ground = LayerMask.GetMask("Ground");
         rb2d = GetComponent<Rigidbody2D>();
         col2d = GetComponent<Collider2D>();
-        remainingDashes = maxDashes;
+        gravityScale = rb2d.gravityScale;
+        ResetJumps();
     }
     void Start()
     {
@@ -65,12 +75,17 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
     }
+    
+    bool jumpQueued = false;
+    bool dashQueued = false;
 
     //update method that runs when the player is able to move freely and not busy with a move
-    bool jumpQueued = false;
     private void FreeUpdate() {
         if (Input.GetButtonDown("Jump")) {
             jumpQueued = true;
+        }
+        if (Input.GetButtonDown("Fire2")) {
+            dashQueued = true;
         }
     }
     private void FreeFixedUpdate() {
@@ -89,7 +104,11 @@ public class PlayerMovement : MonoBehaviour
         isWalking = false;
         if (!isSliding)
             FreeMovement();
+        if (dashQueued) {
+            Dash();
+        }
         jumpQueued = false;
+        dashQueued = false;
     }
 
     //read player inputs to determine horizontal speed
@@ -157,9 +176,9 @@ public class PlayerMovement : MonoBehaviour
         if (OnGround()) {
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
         }
-        else if (remainingDashes > 0) {
+        else if (remainingJumps > 0) {
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
-            remainingDashes--;
+            remainingJumps--;
         }
     }
 
@@ -170,8 +189,45 @@ public class PlayerMovement : MonoBehaviour
         rb2d.velocity = new Vector2(-forward.x * horizontalSpeed, jumpForce);
         movementControl = 0f;
     }
+
+    private void Dash() {
+        dashQueued = false;
+
+        if (!OnGround()) {
+            if (remainingDashes > 0) {
+                remainingDashes--;
+            }
+            else {
+                return;
+            }
+        }
+
+        playerState = state.busy;
+
+        Vector2 initialVelocity = rb2d.velocity;
+        Vector2 rawInputs = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector2 dashDirection = forward;
+        if (rawInputs.magnitude > 0.1f) {
+            dashDirection = direction8(rawInputs);
+        }
+
+        rb2d.velocity = dashDirection.normalized * dashForce;
+        rb2d.gravityScale = 0f;
+        StartCoroutine("DashRecovery");
+    }
+
+    IEnumerator DashRecovery() {
+        yield return new WaitForSeconds(dashTime);
+        playerState = state.free;
+        rb2d.gravityScale = gravityScale;
+        movementControl = 0f;
+        yield break;
+    }
+
     private void ResetJumps() {
         remainingDashes = maxDashes;
+        remainingJumps = maxJumps;
+        rb2d.gravityScale = gravityScale;
     }
     private void ControlUpdate() {
         movementControl += controlRecoveryRate;
@@ -186,5 +242,24 @@ public class PlayerMovement : MonoBehaviour
     private bool FacingWall() {
         RaycastHit2D wallCheck = Physics2D.Raycast(transform.position, forward, col2d.bounds.extents.x + raycastMargin, ground);
         return wallCheck;
+    }
+
+    //method that crushes all possible input directions into 1 of 8 possibilities
+    private Vector2 direction8(Vector2 inputDirection) {
+        Vector2 norm = inputDirection.normalized;
+        
+        //get the angle of the inputted vector2 in degrees
+        float dir = Mathf.Atan2(norm.y, norm.x) * Mathf.Rad2Deg;
+
+        //divide by 45, round, then multiply by 45 to make it snap to the nearest 45 degree angle
+        float crushedDir = Mathf.RoundToInt(dir / 45f) * 45f;
+
+        //convert back from degrees to radians
+        float finalDir = crushedDir * Mathf.Deg2Rad;
+
+        //calculate the new vector
+        Vector2 newDirection = new Vector2(Mathf.Cos(finalDir), Mathf.Sin(finalDir));
+
+        return newDirection;
     }
 }
