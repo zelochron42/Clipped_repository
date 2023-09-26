@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Code to control the player's movement
 /// Written by Joshua Cashmore, 9/15/2023
-/// Last updated 9/22/2023
+/// Last updated 9/26/2023
 /// </summary>
 public class PlayerMovement : MonoBehaviour
 {
@@ -44,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] int remainingJumps = 0;
 
     float gravityScale;
+
+    public UnityEvent<bool> ChangeDirection; //fires when 'forward' variable changes
 
     private void Awake() {
         ground = LayerMask.GetMask("Ground");
@@ -115,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
     private void FreeMovement() {
         float inputX = Input.GetAxisRaw("Horizontal");
         if (Mathf.Abs(inputX) > 0.1f) {
-            forward = new Vector2(inputX, 0f).normalized;
+            SetForwardDirection(new Vector2(inputX, 0f));
             isWalking = true;
         } else {
             inputX = 0f;
@@ -229,6 +232,14 @@ public class PlayerMovement : MonoBehaviour
         remainingJumps = maxJumps;
         rb2d.gravityScale = gravityScale;
     }
+    private void SetForwardDirection(Vector2 newDir) {
+        newDir = newDir.normalized;
+        if (forward != newDir) {
+            ChangeDirection.Invoke(newDir == Vector2.right);
+            forward = newDir;
+        }
+    }
+    
     private void ControlUpdate() {
         movementControl += controlRecoveryRate;
         if (movementControl >= totalControlThreshold)
