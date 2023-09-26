@@ -1395,7 +1395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalSpeed: 3.5
-  jumpForce: 9.2
+  jumpForce: 11
   slowFallSpeed: 2.5
   slideFallSpeed: 1
   dashForce: 13
