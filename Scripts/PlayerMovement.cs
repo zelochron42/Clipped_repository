@@ -5,8 +5,8 @@ using UnityEngine.Events;
 
 /// <summary>
 /// Code to control the player's movement
-/// Written by Joshua Cashmore, 9/15/2023
-/// Last updated 9/26/2023
+/// Written by Joshua Cashmore,
+/// Last updated 9/30/2023
 /// </summary>
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,16 +14,30 @@ public class PlayerMovement : MonoBehaviour
     //"Free" means they are not busy, and are free to move normally.
     enum state { free, busy };
     state playerState = state.free;
+
+    [Header("Movement stats")]
+
+    [Tooltip("Walking speed on ground and in air")]
     [SerializeField] float horizontalSpeed;
+    [Tooltip("Upward velocity set at the start of a jump")]
     [SerializeField] float jumpForce;
+    [Tooltip("Capped downward velocity when holding jump")]
     [SerializeField] float slowFallSpeed;
+    [Tooltip("Capped downward velocity while falling")]
     [SerializeField] float slideFallSpeed;
-
+    [Tooltip("Omnidirectional velocity during a dash")]
     [SerializeField] float dashForce;
+    [Tooltip("Duration of dash, during which player is unaffected by gravity")]
     [SerializeField] float dashTime;
+    [Tooltip("Lifetime of the physical attack object")]
+    [SerializeField] float attackTime;
+    [Tooltip("Time between the start of an attack, and returning control to the player")]
+    [SerializeField] float attackRecovery;
+    [Tooltip("Force with which the player is bounced away from hit targets")]
+    [SerializeField] float attackBouncebackForce;
 
+    [Header("Technical data")]
     [SerializeField] float raycastMargin; //how far raycasts extend outside of the player's collider
-
     [SerializeField] float movementControl = 1f;
     [SerializeField] float controlRecoveryRate;
     [SerializeField] float totalControlThreshold;
@@ -34,6 +48,9 @@ public class PlayerMovement : MonoBehaviour
     
     Collider2D col2d;
 
+    [SerializeField] MeleeSlash slashObject;
+
+    [Header("Realtime variables")]
     [SerializeField] Vector2 forward = Vector2.right; //horizontal direction the player is facing
     [SerializeField] bool isWalking = false;
     [SerializeField] bool isSliding = false;
@@ -44,9 +61,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] int maxJumps;
     [SerializeField] int remainingJumps = 0;
 
+    bool isJumping = false;
+
     float gravityScale;
 
     public UnityEvent<bool> ChangeDirection; //fires when 'forward' variable changes
+    public UnityEvent StartWalk;
+    public UnityEvent StartIdle;
+    public UnityEvent StartJump;
 
     private void Awake() {
         ground = LayerMask.GetMask("Ground");
@@ -54,10 +76,7 @@ public class PlayerMovement : MonoBehaviour
         col2d = GetComponent<Collider2D>();
         gravityScale = rb2d.gravityScale;
         ResetJumps();
-    }
-    void Start()
-    {
-        
+        StartIdle.Invoke();
     }
     void Update()
     {
@@ -80,12 +99,16 @@ public class PlayerMovement : MonoBehaviour
     }
     
     bool jumpQueued = false;
+    bool attackQueued = false;
     bool dashQueued = false;
 
     //update method that runs when the player is able to move freely and not busy with a move
     private void FreeUpdate() {
         if (Input.GetButtonDown("Jump")) {
             jumpQueued = true;
+        }
+        if (Input.GetButtonDown("Fire1")) {
+            attackQueued = true;
         }
         if (Input.GetButtonDown("Fire2")) {
             dashQueued = true;
@@ -110,7 +133,11 @@ public class PlayerMovement : MonoBehaviour
         if (dashQueued) {
             Dash();
         }
+        else if (attackQueued) {
+            Attack();
+        }
         jumpQueued = false;
+        attackQueued = false;
         dashQueued = false;
     }
 
@@ -119,10 +146,16 @@ public class PlayerMovement : MonoBehaviour
         float inputX = Input.GetAxisRaw("Horizontal");
         if (Mathf.Abs(inputX) > 0.1f) {
             SetForwardDirection(new Vector2(inputX, 0f));
-            isWalking = true;
+            if (!isWalking) {
+                isWalking = true;
+                StartWalk.Invoke();
+            }
         } else {
             inputX = 0f;
-            isWalking = false;
+            if (isWalking) {
+                isWalking = false;
+                StartIdle.Invoke();
+            }
         }
         float newSpeed = ApplyInputMovement(inputX);
         rb2d.velocity = new Vector2(newSpeed, rb2d.velocity.y);
@@ -141,8 +174,12 @@ public class PlayerMovement : MonoBehaviour
     //runs when the player is in the air and not busy
     private void FreeFallUpdate() {
         ControlUpdate();
-        if (!Input.GetButton("Jump") && rb2d.velocity.y > 0f) {
+        if (!Input.GetButton("Jump") && rb2d.velocity.y > 0f && isJumping) {
+            isJumping = false;
             rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
+        }
+        else if (rb2d.velocity.y <= 0f) {
+            isJumping = false;
         }
 
         if (isSliding && Input.GetAxisRaw("Vertical") <= -0.1f)
@@ -175,13 +212,18 @@ public class PlayerMovement : MonoBehaviour
     //cause the player to jump
     private void Jump() {
         jumpQueued = false;
-        movementControl = 1f;
         if (OnGround()) {
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
+            isJumping = true;
+            movementControl = 1f;
+            StartJump.Invoke();
         }
         else if (remainingJumps > 0) {
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
             remainingJumps--;
+            isJumping = true;
+            movementControl = 1f;
+            StartJump.Invoke();
         }
     }
 
@@ -190,6 +232,7 @@ public class PlayerMovement : MonoBehaviour
         jumpQueued = false;
         isSliding = false;
         rb2d.velocity = new Vector2(-forward.x * horizontalSpeed, jumpForce);
+        isJumping = true;
         movementControl = 0f;
     }
 
@@ -217,6 +260,56 @@ public class PlayerMovement : MonoBehaviour
         rb2d.velocity = dashDirection.normalized * dashForce;
         rb2d.gravityScale = 0f;
         StartCoroutine("DashRecovery");
+    }
+
+    private void Attack() {
+        attackQueued = false;
+
+        playerState = state.busy;
+        StartCoroutine("SwordAttack");
+    }
+    Vector2 lastAttackDirection = Vector2.zero;
+    IEnumerator SwordAttack() {
+        Vector2 rawInputs = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector2 slashDirection = forward;
+        if (rawInputs.magnitude > 0.1f) {
+            slashDirection = direction8(rawInputs);
+        }
+        lastAttackDirection = slashDirection;
+
+        MeleeSlash newSlash = Instantiate(slashObject);
+        newSlash.transform.parent = transform;
+
+        newSlash.SetTargets("Enemy", "Bounce");
+        newSlash.TargetHit.AddListener(() => {
+            AttackLanded();
+            newSlash.TargetHit.RemoveAllListeners(); 
+        });
+
+        float slashLength = 0.5f;
+        Collider2D slashCol = newSlash.GetComponent<Collider2D>();
+        if (slashCol)
+            slashLength = slashCol.bounds.extents.x;
+
+        newSlash.transform.position = (Vector2)transform.position + slashDirection * slashLength;
+        newSlash.transform.right = slashDirection;
+        
+
+        Destroy(newSlash.gameObject, attackTime);
+        yield return new WaitForSeconds(attackRecovery);
+        playerState = state.free;
+        yield break;
+    }
+    private void AttackLanded() {
+        Debug.Log("ATTACK LANDED");
+        Vector2 bounceDirection = -lastAttackDirection;
+        if (Mathf.Abs(bounceDirection.y) > 0.1f)
+            rb2d.velocity = new Vector2(rb2d.velocity.x, attackBouncebackForce);
+        else {
+            movementControl = 0f;
+            rb2d.velocity = bounceDirection * attackBouncebackForce;
+        }
+        ResetJumps();
     }
 
     IEnumerator DashRecovery() {
