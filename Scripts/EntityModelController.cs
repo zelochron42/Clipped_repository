@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EntityModelController : MonoBehaviour
 {
+    [SerializeField] bool enabled = true;
     Rigidbody2D rb2d;
     Vector3 defaultScale;
     [SerializeField] Transform model;
@@ -11,11 +12,13 @@ public class EntityModelController : MonoBehaviour
         defaultScale = model.localScale;
     }
     public void FlipModel(bool right) {
-        if (right) {
-            model.localScale = new Vector3(defaultScale.x, defaultScale.y, defaultScale.z);
-        }
-        else {
-            model.localScale = new Vector3(defaultScale.x, defaultScale.y, -defaultScale.z);
+        if (enabled) {
+            if (right) {
+                model.localScale = new Vector3(defaultScale.x, defaultScale.y, defaultScale.z);
+            }
+            else {
+                model.localScale = new Vector3(defaultScale.x, defaultScale.y, -defaultScale.z);
+            }
         }
     }
 }

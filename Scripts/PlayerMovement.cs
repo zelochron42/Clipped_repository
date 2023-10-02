@@ -127,7 +127,6 @@ public class PlayerMovement : MonoBehaviour
         else {
             FreeFallUpdate();
         }
-        isWalking = false;
         if (!isSliding)
             FreeMovement();
         if (dashQueued) {
@@ -196,6 +195,7 @@ public class PlayerMovement : MonoBehaviour
             isSliding = false;
         }
         else if (isWalking) {
+            isWalking = false;
             isSliding = true;
         }
         if (jumpQueued) {
@@ -365,5 +365,10 @@ public class PlayerMovement : MonoBehaviour
         Vector2 newDirection = new Vector2(Mathf.Cos(finalDir), Mathf.Sin(finalDir));
 
         return newDirection;
+    }
+
+
+    public void PrintInput(string input) {
+        Debug.Log(input);
     }
 }
