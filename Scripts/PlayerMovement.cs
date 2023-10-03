@@ -6,7 +6,7 @@ using UnityEngine.Events;
 /// <summary>
 /// Code to control the player's movement
 /// Written by Joshua Cashmore,
-/// Last updated 9/30/2023
+/// Last updated 10/3/2023
 /// </summary>
 public class PlayerMovement : MonoBehaviour
 {
@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
     
     Collider2D col2d;
 
-    [SerializeField] MeleeSlash slashObject;
+    [SerializeField] TargetedCollider slashObject;
 
     [Header("Realtime variables")]
     [SerializeField] Vector2 forward = Vector2.right; //horizontal direction the player is facing
@@ -69,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
     public UnityEvent StartWalk;
     public UnityEvent StartIdle;
     public UnityEvent StartJump;
+    public UnityEvent StartWalljump;
 
     private void Awake() {
         ground = LayerMask.GetMask("Ground");
@@ -147,13 +148,15 @@ public class PlayerMovement : MonoBehaviour
             SetForwardDirection(new Vector2(inputX, 0f));
             if (!isWalking) {
                 isWalking = true;
-                StartWalk.Invoke();
+                if (OnGround())
+                    StartWalk.Invoke();
             }
         } else {
             inputX = 0f;
             if (isWalking) {
                 isWalking = false;
-                StartIdle.Invoke();
+                if (OnGround())
+                    StartIdle.Invoke();
             }
         }
         float newSpeed = ApplyInputMovement(inputX);
@@ -229,6 +232,7 @@ public class PlayerMovement : MonoBehaviour
 
     //wall jump can only be performed while sliding
     private void WallJump() {
+        StartWalljump.Invoke();
         jumpQueued = false;
         isSliding = false;
         rb2d.velocity = new Vector2(-forward.x * horizontalSpeed, jumpForce);
@@ -238,14 +242,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dash() {
         dashQueued = false;
-
-        if (!OnGround()) {
-            if (remainingDashes > 0) {
-                remainingDashes--;
-            }
-            else {
-                return;
-            }
+        if (remainingDashes > 0) {
+            remainingDashes--;
+        }
+        else {
+            return;
         }
 
         playerState = state.busy;
@@ -277,7 +278,7 @@ public class PlayerMovement : MonoBehaviour
         }
         lastAttackDirection = slashDirection;
 
-        MeleeSlash newSlash = Instantiate(slashObject);
+        TargetedCollider newSlash = Instantiate(slashObject);
         newSlash.transform.parent = transform;
 
         newSlash.SetTargets("Enemy", "Bounce");
