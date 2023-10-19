@@ -53,7 +53,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Realtime variables")]
     [SerializeField] Vector2 forward = Vector2.right; //horizontal direction the player is facing
     [SerializeField] bool isWalking = false;
-    [SerializeField] bool isSliding = false;
+
+    public bool isSliding = false;
 
     [SerializeField] int maxDashes;
     [SerializeField] int remainingDashes = 0;
@@ -339,7 +340,7 @@ public class PlayerMovement : MonoBehaviour
         if (movementControl >= totalControlThreshold)
             movementControl = 1.1f;
     }
-    private bool OnGround() {
+    public bool OnGround() {
         RaycastHit2D groundCheck = Physics2D.BoxCast(transform.position, (Vector2)col2d.bounds.size - new Vector2(raycastMargin, raycastMargin), 0f, Vector2.down, raycastMargin * 1.5f, ground);
         //RaycastHit2D groundCheck = Physics2D.Raycast(transform.position, Vector2.down, col2d.bounds.extents.y + raycastMargin, ground);
         return groundCheck;
