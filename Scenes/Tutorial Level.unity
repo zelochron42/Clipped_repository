@@ -9791,7 +9791,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh56252
+  m_Name: pb_Mesh26158
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13528,7 +13528,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8204492072063908872, guid: ceff408b815e26542826c882823a1709, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.85
+      value: -1.964
       objectReference: {fileID: 0}
     - target: {fileID: 8204492072063908872, guid: ceff408b815e26542826c882823a1709, type: 3}
       propertyPath: m_LocalPosition.z
@@ -13561,6 +13561,10 @@ PrefabInstance:
     - target: {fileID: 8204492072063908872, guid: ceff408b815e26542826c882823a1709, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204492072063908873, guid: ceff408b815e26542826c882823a1709, type: 3}
+      propertyPath: attackTime
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8204492072063908873, guid: ceff408b815e26542826c882823a1709, type: 3}
       propertyPath: raycastMargin
