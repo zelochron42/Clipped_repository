@@ -24,14 +24,20 @@ public class PlayerStats : MonoBehaviour
             Debug.Log("Player is big dead");
         }
     }
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.CompareTag("Damage")) {
+            PlayerHealth -= DamageAmount;
+            Debug.Log("Ouch");
+        }
+    }
+    /*void OnTriggerEnter2D(Collider other)
     {
         if (other.gameObject.CompareTag("Damage"))
         {
             PlayerHealth -=DamageAmount;
             Debug.Log("Ouch");
         }
-    }
+    }*/
     public void Damage()
     {
         PlayerHealth -= DamageAmount;
