@@ -7841,26 +7841,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 42
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 180}
---- !u!1 &1323854941 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8204492072063908868, guid: ceff408b815e26542826c882823a1709, type: 3}
+--- !u!114 &1323854948 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1323854948, guid: ceff408b815e26542826c882823a1709, type: 3}
   m_PrefabInstance: {fileID: 5385864045424050217}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1323854948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1323854941}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fcfe8a5a5bf37b4e8901bf7f979c41f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageAmount: 5
-  PlayerHealth: 100
-  HealthSlider: {fileID: 3403496147840083382}
 --- !u!1 &1497150902
 GameObject:
   m_ObjectHideFlags: 0
@@ -13514,6 +13505,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1323854948, guid: ceff408b815e26542826c882823a1709, type: 3}
+      propertyPath: HealthSlider
+      value: 
+      objectReference: {fileID: 3403496147840083382}
     - target: {fileID: 8204492072063908868, guid: ceff408b815e26542826c882823a1709, type: 3}
       propertyPath: m_Name
       value: Player
@@ -13561,14 +13556,6 @@ PrefabInstance:
     - target: {fileID: 8204492072063908872, guid: ceff408b815e26542826c882823a1709, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204492072063908873, guid: ceff408b815e26542826c882823a1709, type: 3}
-      propertyPath: attackTime
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204492072063908873, guid: ceff408b815e26542826c882823a1709, type: 3}
-      propertyPath: raycastMargin
-      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ceff408b815e26542826c882823a1709, type: 3}

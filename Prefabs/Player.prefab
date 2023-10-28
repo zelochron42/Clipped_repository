@@ -2305,6 +2305,7 @@ GameObject:
   - component: {fileID: 8204492072063908873}
   - component: {fileID: 8204492072063908871}
   - component: {fileID: 438260924676950517}
+  - component: {fileID: 1323854948}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2394,10 +2395,10 @@ MonoBehaviour:
   slideFallSpeed: 1
   dashForce: 9
   dashTime: 0.14
-  attackTime: 0.05
+  attackTime: 3
   attackRecovery: 0.08
   attackBouncebackForce: 8
-  raycastMargin: 0.05
+  raycastMargin: 0.15
   movementControl: 1
   controlRecoveryRate: 0.015
   totalControlThreshold: 0.15
@@ -2510,6 +2511,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e99d4571297454a84907eecca71499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1323854948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8204492072063908868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fcfe8a5a5bf37b4e8901bf7f979c41f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageAmount: 5
+  PlayerHealth: 100
+  HealthSlider: {fileID: 0}
 --- !u!1 &8216800722585693557
 GameObject:
   m_ObjectHideFlags: 0
