@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class PlayerStats : MonoBehaviour
         if(PlayerHealth <= 0)
         {
             Debug.Log("Player is big dead");
+            SceneManager.LoadScene(1);
+
+            
         }
     }
     private void OnTriggerEnter2D(Collider2D collision) {
