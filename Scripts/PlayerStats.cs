@@ -9,9 +9,12 @@ public class PlayerStats : MonoBehaviour
     public int DamageAmount;
     public float PlayerHealth = 100;
     public Slider HealthSlider;
+
+    PlayerMovement movement;
     // Start is called before the first frame update
     void Start()
     {
+        movement = GetComponent<PlayerMovement>();
         HealthSlider.value = PlayerHealth;
 
     }
@@ -30,6 +33,7 @@ public class PlayerStats : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("Damage")) {
+            movement.Knockback(collision.bounds.center);
             PlayerHealth -= DamageAmount;
             Debug.Log("Ouch");
         }

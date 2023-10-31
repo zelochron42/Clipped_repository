@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float attackBouncebackForce;
 
     [Header("Technical data")]
+    [SerializeField] float knockbackForce;
     [SerializeField] float raycastMargin; //how far raycasts extend outside of the player's collider
     [SerializeField] float movementControl = 1f;
     [SerializeField] float controlRecoveryRate;
@@ -369,8 +370,16 @@ public class PlayerMovement : MonoBehaviour
         return newDirection;
     }
 
-
-    public void PrintInput(string input) {
-        Debug.Log(input);
+    public void Knockback(Vector2 originPoint) {
+        float xSpeed = 0f;
+        if (originPoint.x > transform.position.x) {
+            xSpeed = -1f;
+        } else {
+            xSpeed = 1f;
+        }
+        rb2d.velocity = new Vector2(xSpeed * knockbackForce, knockbackForce);
+        isJumping = false;
+        isSliding = false;
+        movementControl = 0f;
     }
 }
