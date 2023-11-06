@@ -29,10 +29,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float dashForce;
     [Tooltip("Duration of dash, during which player is unaffected by gravity")]
     [SerializeField] float dashTime;
-    [Tooltip("Lifetime of the physical attack object")]
+    [Tooltip("Time it takes for attack object to be cleaned up if its script fails")]
     [SerializeField] float attackTime;
     [Tooltip("Time between the start of an attack, and returning control to the player")]
     [SerializeField] float attackRecovery;
+    [Tooltip("Time it takes to be able to attack again after regaining control")]
+    [SerializeField] float attackCooldown;
     [Tooltip("Force with which the player is bounced away from hit targets")]
     [SerializeField] float attackBouncebackForce;
 
@@ -42,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float movementControl = 1f;
     [SerializeField] float controlRecoveryRate;
     [SerializeField] float totalControlThreshold;
+    [SerializeField] Transform rigContainer;
 
     LayerMask ground;
     
@@ -72,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
     public UnityEvent StartIdle;
     public UnityEvent StartJump;
     public UnityEvent StartWalljump;
+    public UnityEvent StartDash;
+    public UnityEvent EndDash;
 
     private void Awake() {
         ground = LayerMask.GetMask("Ground");
@@ -259,31 +264,42 @@ public class PlayerMovement : MonoBehaviour
         if (rawInputs.magnitude > 0.1f) {
             dashDirection = direction8(rawInputs);
         }
-
+        rigContainer.up = dashDirection;
         rb2d.velocity = dashDirection.normalized * dashForce;
         rb2d.gravityScale = 0f;
+        StartDash.Invoke();
         StartCoroutine("DashRecovery");
     }
 
+    bool canAttack = true;
     private void Attack() {
         attackQueued = false;
-
-        playerState = state.busy;
-        StartCoroutine("SwordAttack");
+        if (canAttack) {
+            canAttack = false;
+            playerState = state.busy;
+            StartCoroutine("SwordAttack");
+        }
     }
     Vector2 lastAttackDirection = Vector2.zero;
+    bool lastAttackGrounded = false;
     IEnumerator SwordAttack() {
         Vector2 rawInputs = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector2 slashDirection = forward;
         if (rawInputs.magnitude > 0.1f) {
             slashDirection = direction8(rawInputs);
         }
+        if (OnGround() || isSliding)
+            lastAttackGrounded = true;
+        else {
+            lastAttackGrounded = false;
+            slashDirection = direction8TargetLocator(slashDirection);
+        }
         lastAttackDirection = slashDirection;
 
         TargetedCollider newSlash = Instantiate(slashObject);
         newSlash.transform.parent = transform;
 
-        newSlash.SetTargets("Enemy", "Bounce");
+        newSlash.SetTargets("Enemy", "Bounce", "Damage");
         newSlash.TargetHit.AddListener(() => {
             AttackLanded();
             newSlash.TargetHit.RemoveAllListeners(); 
@@ -301,25 +317,30 @@ public class PlayerMovement : MonoBehaviour
         Destroy(newSlash.gameObject, attackTime);
         yield return new WaitForSeconds(attackRecovery);
         playerState = state.free;
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
         yield break;
     }
     private void AttackLanded() {
         Debug.Log("ATTACK LANDED");
         Vector2 bounceDirection = -lastAttackDirection;
-        if (Mathf.Abs(bounceDirection.y) > 0.1f)
+        if (!lastAttackGrounded) {
             rb2d.velocity = new Vector2(rb2d.velocity.x, attackBouncebackForce);
-        else {
-            movementControl = 0f;
-            rb2d.velocity = bounceDirection * attackBouncebackForce;
+            movementControl = 0.5f;
+            ResetJumps();
         }
-        ResetJumps();
+        else {
+            rb2d.velocity = new Vector2(bounceDirection.x * attackBouncebackForce, rb2d.velocity.y);
+        }
     }
 
     IEnumerator DashRecovery() {
         yield return new WaitForSeconds(dashTime);
+        rigContainer.up = Vector2.up;
         playerState = state.free;
         rb2d.gravityScale = gravityScale;
         movementControl = 0f;
+        EndDash.Invoke();
         yield break;
     }
 
@@ -327,6 +348,7 @@ public class PlayerMovement : MonoBehaviour
         remainingDashes = maxDashes;
         remainingJumps = maxJumps;
         rb2d.gravityScale = gravityScale;
+        isJumping = false;
     }
     private void SetForwardDirection(Vector2 newDir) {
         newDir = newDir.normalized;
@@ -349,6 +371,30 @@ public class PlayerMovement : MonoBehaviour
     private bool FacingWall() {
         RaycastHit2D wallCheck = Physics2D.Raycast(transform.position, forward, col2d.bounds.extents.x + raycastMargin, ground);
         return wallCheck;
+    }
+
+    //scan 8 directions for a target to hit with the sword
+    private Vector2 direction8TargetLocator(Vector2 defaultDirection) {
+        float maxDistance = 4f;
+        Vector2 currentDirection = defaultDirection;
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, maxDistance, LayerMask.GetMask("Default"));
+        foreach (Collider2D h in hits) {
+            CompareClosestPoint(ref maxDistance, ref currentDirection, h);
+        }
+        Vector2 finalDirection = direction8(currentDirection);
+        return finalDirection;
+    }
+
+    private void CompareClosestPoint(ref float maxDistance, ref Vector2 currentDirection, Collider2D h) {
+        if (h.gameObject.CompareTag("Enemy") || h.gameObject.CompareTag("Bounce") || h.gameObject.CompareTag("Damage")) {
+            Vector2 nearestPoint = h.ClosestPoint(transform.position);
+            float thisDist = Vector2.Distance(transform.position, nearestPoint);
+            if (thisDist < maxDistance) {
+                maxDistance = thisDist;
+                currentDirection = (nearestPoint - (Vector2)transform.position).normalized;
+            }
+        }
     }
 
     //method that crushes all possible input directions into 1 of 8 possibilities

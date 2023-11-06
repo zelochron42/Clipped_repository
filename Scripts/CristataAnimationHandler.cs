@@ -10,8 +10,8 @@ public class CristataAnimationHandler : MonoBehaviour
     // Start is called before the first frame update
     private void Awake() {
         anim = GetComponent<Animator>();
-        rb2d = transform.parent.GetComponent<Rigidbody2D>();
-        plrmov = transform.parent.GetComponent<PlayerMovement>();
+        rb2d = gameObject.GetComponentInParent<Rigidbody2D>();
+        plrmov = gameObject.GetComponentInParent<PlayerMovement>();
     }
 
     // Update is called once per frame
