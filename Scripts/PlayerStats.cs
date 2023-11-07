@@ -9,6 +9,7 @@ public class PlayerStats : MonoBehaviour
     public int DamageAmount;
     public float PlayerHealth = 100;
     public Slider HealthSlider;
+    public int SceneNumber;
 
     PlayerMovement movement;
     // Start is called before the first frame update
@@ -26,7 +27,7 @@ public class PlayerStats : MonoBehaviour
         if(PlayerHealth <= 0)
         {
             Debug.Log("Player is big dead");
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(SceneNumber);
 
             
         }

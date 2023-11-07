@@ -11627,6 +11627,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1323854948, guid: ceff408b815e26542826c882823a1709, type: 3}
+      propertyPath: SceneNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323854948, guid: ceff408b815e26542826c882823a1709, type: 3}
       propertyPath: DamageAmount
       value: 3
       objectReference: {fileID: 0}
