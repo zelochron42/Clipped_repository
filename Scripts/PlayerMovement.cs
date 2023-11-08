@@ -12,8 +12,8 @@ public class PlayerMovement : MonoBehaviour
 {
     //"Busy" means the player is in the middle of dashing or attacking and cannot perform normal inputs.
     //"Free" means they are not busy, and are free to move normally.
-    enum state { free, busy };
-    state playerState = state.free;
+    public enum state { free, busy };
+    public state playerState = state.free;
 
     [Header("Movement stats")]
 

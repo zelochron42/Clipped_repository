@@ -21,6 +21,7 @@ public class CristataAnimationHandler : MonoBehaviour
         anim.SetFloat("YVelocity", rb2d.velocity.y);
         anim.SetBool("OnGround", plrmov.OnGround());
         anim.SetBool("IsSliding", plrmov.isSliding);
+        anim.SetBool("IsFree", plrmov.playerState == PlayerMovement.state.free);
     }
 
     public void JumpTrigger() {
