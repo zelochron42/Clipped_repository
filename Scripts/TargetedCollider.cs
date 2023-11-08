@@ -5,7 +5,7 @@ using UnityEngine.Events;
 /// <summary>
 /// Code to be placed on melee weapon slash effects
 /// Written by Joshua Cashmore
-/// last updated 10/3/2023
+/// last updated 11/8/2023
 /// </summary>
 public class TargetedCollider : MonoBehaviour
 {
@@ -18,6 +18,7 @@ public class TargetedCollider : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         foreach (string t in targets) {
             if (collision.gameObject.CompareTag(t)) {
+                Debug.Log("targeted collider hit object");
                 TargetHit.Invoke();
                 return;
             }

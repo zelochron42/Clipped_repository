@@ -6,7 +6,7 @@ using UnityEngine.Events;
 /// <summary>
 /// Code to control the player's movement
 /// Written by Joshua Cashmore,
-/// Last updated 10/3/2023
+/// Last updated 11/8/2023
 /// </summary>
 public class PlayerMovement : MonoBehaviour
 {
@@ -297,7 +297,10 @@ public class PlayerMovement : MonoBehaviour
         lastAttackDirection = slashDirection;
 
         TargetedCollider newSlash = Instantiate(slashObject);
-        newSlash.transform.parent = transform;
+        //newSlash.transform.parent = transform;
+        ObjectFollower objfol = newSlash.gameObject.GetComponent<ObjectFollower>();
+        if (objfol)
+            objfol.SetFollow(transform);
 
         newSlash.SetTargets("Enemy", "Bounce", "Damage");
         newSlash.TargetHit.AddListener(() => {
