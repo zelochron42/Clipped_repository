@@ -16,6 +16,7 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         movement = GetComponent<PlayerMovement>();
+        HealthSlider.maxValue = PlayerHealth;
         HealthSlider.value = PlayerHealth;
 
     }

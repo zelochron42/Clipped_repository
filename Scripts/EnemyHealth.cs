@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class EnemyHealth : MonoBehaviour
 {
     public bool respawns = true;
+    [SerializeField] float despawnTimeAfterDeath = 0f;
     bool dead = false;
     [SerializeField] float maxHealth;
     public UnityEvent<Vector2> DamageReceived;
@@ -40,7 +41,7 @@ public class EnemyHealth : MonoBehaviour
         if (health <= 0f && !dead) {
             dead = true;
             Death.Invoke();
-            Destroy(gameObject, 0.1f);
+            Destroy(gameObject, despawnTimeAfterDeath);
         }
     }
 }

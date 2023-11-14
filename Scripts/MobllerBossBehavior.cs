@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// Enemy AI script controlling the Mobller boss enemy (final boss)
-/// Written by Joshua Cashmore, last updated 10/31/2023
+/// Written by Joshua Cashmore, last updated 11/14/2023
 /// </summary>
 public class MobllerBossBehavior : MonoBehaviour
 {
@@ -18,6 +18,7 @@ public class MobllerBossBehavior : MonoBehaviour
     [SerializeField] float attackDelay = 2f;
 
     [SerializeField] Collider2D LeftFistCollider;
+    [SerializeField] Collider2D RightFistCollider;
     [SerializeField] float fistSlamRange = 1f;
 
     float timeIdle = 0f;
@@ -55,7 +56,11 @@ public class MobllerBossBehavior : MonoBehaviour
     void PunchSequenceUpdate() {
         float xDiff = player.position.x - transform.position.x;
         if (Mathf.Abs(xDiff) <= fistSlamRange) {
-            FistSlam();
+            int attackNum = Random.Range(0, 2);
+            if (attackNum == 0)
+                FistSlam();
+            else
+                FistSweep();
         }
         else {
             PursuePlayer(xDiff);
@@ -83,16 +88,28 @@ public class MobllerBossBehavior : MonoBehaviour
         anim.SetTrigger("LeftSmash");
     }
 
+    void FistSweep() {
+        currentState = attack.rightHook;
+        rb2d.velocity *= 0f;
+        anim.SetTrigger("RightHook");
+    }
     public void ReturnToIdle() {
         timeIdle = 0f;
         currentState = attack.none;
     }
 
+    //separate methods for enabling and disabling each collider because unity animation events are too limited
     public void EnableLeftFistCollider() {
         LeftFistCollider.enabled = true;
     }
     public void DisableLeftFistCollider() {
         LeftFistCollider.enabled = false;
+    }
+    public void EnableRightFistCollider() {
+        RightFistCollider.enabled = true;
+    }
+    public void DisableRightFistCollider() {
+        RightFistCollider.enabled = false;
     }
 
 }

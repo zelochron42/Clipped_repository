@@ -967,7 +967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawns: 1
-  maxHealth: 5
+  maxHealth: 3
   DamageReceived:
     m_PersistentCalls:
       m_Calls:
