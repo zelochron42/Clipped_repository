@@ -17,8 +17,13 @@ public class MobllerBossBehavior : MonoBehaviour
     [SerializeField] float horizontalAcceleration = 0.1f;
     [SerializeField] float attackDelay = 2f;
 
+    [SerializeField] float projectileForce;
+    [SerializeField] float projectileSpread;
+
     [SerializeField] Collider2D LeftFistCollider;
     [SerializeField] Collider2D RightFistCollider;
+    [SerializeField] Rigidbody2D projectilePrefab;
+    [SerializeField] Transform projectileLaunch;
     [SerializeField] float fistSlamRange = 1f;
 
     float timeIdle = 0f;
@@ -28,6 +33,11 @@ public class MobllerBossBehavior : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+    }
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.V)) {
+            LaunchProjectile();
+        }
     }
 
     // Update is called once per frame
@@ -56,11 +66,13 @@ public class MobllerBossBehavior : MonoBehaviour
     void PunchSequenceUpdate() {
         float xDiff = player.position.x - transform.position.x;
         if (Mathf.Abs(xDiff) <= fistSlamRange) {
-            int attackNum = Random.Range(0, 2);
+            int attackNum = Random.Range(0, 3);
             if (attackNum == 0)
                 FistSlam();
-            else
+            else if (attackNum == 1)
                 FistSweep();
+            else
+                ProjectileAttack();
         }
         else {
             PursuePlayer(xDiff);
@@ -92,6 +104,20 @@ public class MobllerBossBehavior : MonoBehaviour
         currentState = attack.rightHook;
         rb2d.velocity *= 0f;
         anim.SetTrigger("RightHook");
+    }
+    void ProjectileAttack() {
+        currentState = attack.putridBreath;
+        rb2d.velocity *= 0f;
+        anim.SetTrigger("Vomit");
+    }
+    public void LaunchProjectile() {
+        Rigidbody2D newProjectile = Instantiate(projectilePrefab);
+        Destroy(newProjectile.gameObject, 10f);
+        newProjectile.transform.position = projectileLaunch.position;
+        float launchAngle = 90f + Random.Range(-projectileSpread/2f, projectileSpread/2f);
+        float launchRadian = launchAngle * Mathf.Deg2Rad;
+        Vector2 launchVector = new Vector2(Mathf.Cos(launchRadian), Mathf.Sin(launchRadian));
+        newProjectile.velocity = launchVector * projectileForce;
     }
     public void ReturnToIdle() {
         timeIdle = 0f;
