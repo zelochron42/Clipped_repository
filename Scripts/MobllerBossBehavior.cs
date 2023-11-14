@@ -20,6 +20,10 @@ public class MobllerBossBehavior : MonoBehaviour
     [SerializeField] float projectileForce;
     [SerializeField] float projectileSpread;
 
+    [SerializeField] MeshRenderer headModel;
+    [SerializeField] Material damageMaterial;
+    [SerializeField] Material headBaseMaterial;
+
     [SerializeField] Collider2D LeftFistCollider;
     [SerializeField] Collider2D RightFistCollider;
     [SerializeField] Rigidbody2D projectilePrefab;
@@ -33,6 +37,7 @@ public class MobllerBossBehavior : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        headBaseMaterial = headModel.material;
     }
     private void Update() {
         if (Input.GetKeyDown(KeyCode.V)) {
@@ -122,6 +127,16 @@ public class MobllerBossBehavior : MonoBehaviour
     public void ReturnToIdle() {
         timeIdle = 0f;
         currentState = attack.none;
+    }
+
+    public void DamageBlink() {
+        headModel.material = damageMaterial;
+        StartCoroutine("DamageUnblink");
+    }
+    IEnumerator DamageUnblink() {
+        yield return new WaitForSeconds(0.05f);
+        headModel.material = headBaseMaterial;
+        yield break;
     }
 
     //separate methods for enabling and disabling each collider because unity animation events are too limited

@@ -9,9 +9,9 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] float despawnTimeAfterDeath = 0f;
     bool dead = false;
     [SerializeField] float maxHealth;
+    [SerializeField] float health;
     public UnityEvent<Vector2> DamageReceived;
     public UnityEvent Death;
-    float health;
     public void AttackDamage(Vector2 attackDirection) {
         health -= 1f;
         DamageReceived.Invoke(attackDirection);
@@ -24,7 +24,8 @@ public class EnemyHealth : MonoBehaviour
         if (respawns) {
             respawns = false;
             EnemyRespawner er = FindObjectOfType<EnemyRespawner>();
-            er.AddToRespawn(this);
+            if (er)
+                er.AddToRespawn(this);
         }
 
     }
