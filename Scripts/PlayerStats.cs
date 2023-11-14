@@ -38,7 +38,9 @@ public class PlayerStats : MonoBehaviour
         if (collision.gameObject.CompareTag("Damage") || collision.gameObject.CompareTag("Enemy")) {
             if (collision.gameObject.name == "Instakill")
                 PlayerHealth = 0f;
-            Damage(collision.bounds.center);
+            EnemyHealth eh = collision.gameObject.GetComponent<EnemyHealth>();
+            if ((eh && eh.damagePlayerOnContact) || !eh)
+                Damage(collision.bounds.center);
             Debug.Log("Ouch");
         }
         else if (collision.gameObject.name == "Nextlevel") {
@@ -47,7 +49,9 @@ public class PlayerStats : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Damage") || collision.gameObject.CompareTag("Enemy")) {
-            Damage(collision.otherCollider.bounds.center);
+            EnemyHealth eh = collision.gameObject.GetComponent<EnemyHealth>();
+            if ((eh && eh.damagePlayerOnContact) || !eh)
+                Damage(collision.otherCollider.bounds.center);
             Debug.Log("Ouch");
         }
     }

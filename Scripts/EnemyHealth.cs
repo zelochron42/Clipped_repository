@@ -12,6 +12,8 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] float health;
     public UnityEvent<Vector2> DamageReceived;
     public UnityEvent Death;
+
+    public bool damagePlayerOnContact = true;
     public void AttackDamage(Vector2 attackDirection) {
         health -= 1f;
         DamageReceived.Invoke(attackDirection);

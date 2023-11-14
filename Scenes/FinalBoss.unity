@@ -4323,6 +4323,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  damagePlayerOnContact: 0
 --- !u!4 &5697192406532599343
 Transform:
   m_ObjectHideFlags: 0
