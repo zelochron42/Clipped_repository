@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// Enemy AI script controlling the Mobller boss enemy (final boss)
-/// Written by Joshua Cashmore, last updated 10/31/2023
+/// Written by Joshua Cashmore, last updated 11/14/2023
 /// </summary>
 public class MobllerBossBehavior : MonoBehaviour
 {
@@ -17,7 +17,17 @@ public class MobllerBossBehavior : MonoBehaviour
     [SerializeField] float horizontalAcceleration = 0.1f;
     [SerializeField] float attackDelay = 2f;
 
+    [SerializeField] float projectileForce;
+    [SerializeField] float projectileSpread;
+
+    [SerializeField] MeshRenderer headModel;
+    [SerializeField] Material damageMaterial;
+    [SerializeField] Material headBaseMaterial;
+
     [SerializeField] Collider2D LeftFistCollider;
+    [SerializeField] Collider2D RightFistCollider;
+    [SerializeField] Rigidbody2D projectilePrefab;
+    [SerializeField] Transform projectileLaunch;
     [SerializeField] float fistSlamRange = 1f;
 
     float timeIdle = 0f;
@@ -27,6 +37,12 @@ public class MobllerBossBehavior : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        headBaseMaterial = headModel.material;
+    }
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.V)) {
+            LaunchProjectile();
+        }
     }
 
     // Update is called once per frame
@@ -55,7 +71,13 @@ public class MobllerBossBehavior : MonoBehaviour
     void PunchSequenceUpdate() {
         float xDiff = player.position.x - transform.position.x;
         if (Mathf.Abs(xDiff) <= fistSlamRange) {
-            FistSlam();
+            int attackNum = Random.Range(0, 3);
+            if (attackNum == 0)
+                FistSlam();
+            else if (attackNum == 1)
+                FistSweep();
+            else
+                ProjectileAttack();
         }
         else {
             PursuePlayer(xDiff);
@@ -83,16 +105,52 @@ public class MobllerBossBehavior : MonoBehaviour
         anim.SetTrigger("LeftSmash");
     }
 
+    void FistSweep() {
+        currentState = attack.rightHook;
+        rb2d.velocity *= 0f;
+        anim.SetTrigger("RightHook");
+    }
+    void ProjectileAttack() {
+        currentState = attack.putridBreath;
+        rb2d.velocity *= 0f;
+        anim.SetTrigger("Vomit");
+    }
+    public void LaunchProjectile() {
+        Rigidbody2D newProjectile = Instantiate(projectilePrefab);
+        Destroy(newProjectile.gameObject, 10f);
+        newProjectile.transform.position = projectileLaunch.position;
+        float launchAngle = 90f + Random.Range(-projectileSpread/2f, projectileSpread/2f);
+        float launchRadian = launchAngle * Mathf.Deg2Rad;
+        Vector2 launchVector = new Vector2(Mathf.Cos(launchRadian), Mathf.Sin(launchRadian));
+        newProjectile.velocity = launchVector * projectileForce;
+    }
     public void ReturnToIdle() {
         timeIdle = 0f;
         currentState = attack.none;
     }
 
+    public void DamageBlink() {
+        headModel.material = damageMaterial;
+        StartCoroutine("DamageUnblink");
+    }
+    IEnumerator DamageUnblink() {
+        yield return new WaitForSeconds(0.05f);
+        headModel.material = headBaseMaterial;
+        yield break;
+    }
+
+    //separate methods for enabling and disabling each collider because unity animation events are too limited
     public void EnableLeftFistCollider() {
         LeftFistCollider.enabled = true;
     }
     public void DisableLeftFistCollider() {
         LeftFistCollider.enabled = false;
+    }
+    public void EnableRightFistCollider() {
+        RightFistCollider.enabled = true;
+    }
+    public void DisableRightFistCollider() {
+        RightFistCollider.enabled = false;
     }
 
 }

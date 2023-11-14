@@ -9,10 +9,11 @@ public class WalkerEnemyBehavior : MonoBehaviour
     Collider2D col2d;
 
     [SerializeField] float walkSpeed;
-
+    [SerializeField] float knockbackRecoveryTime = 0.25f;
     [SerializeField] float proximityThreshold = 0.5f;
     [SerializeField] int wanderIndex;
-    [SerializeField] Vector2[] wanderPoints;
+    public Vector2[] wanderPoints;
+    Vector2[] worldWanderPoints;
 
     [SerializeField] Transform model;
 
@@ -24,27 +25,27 @@ public class WalkerEnemyBehavior : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         col2d = GetComponent<Collider2D>();
+        worldWanderPoints = new Vector2[wanderPoints.Length];
         for (int i = 0; i < wanderPoints.Length; i++) {
-            wanderPoints[i] = wanderPoints[i] + (Vector2)transform.position;
+            worldWanderPoints[i] = wanderPoints[i] + (Vector2)transform.position;
         }
     }
 
     void Update()
     {
         if (isWalking) {
-
             WalkUpdate();
         }
     }
     void WalkUpdate() {
-        Vector2 goalPos = wanderPoints[wanderIndex];
+        Vector2 goalPos = worldWanderPoints[wanderIndex];
 
         float toGoal = Vector2.Distance(transform.position, goalPos);
 
         if (toGoal <= proximityThreshold) {
-            wanderIndex = (wanderIndex + 1) % wanderPoints.Length;
+            wanderIndex = (wanderIndex + 1) % worldWanderPoints.Length;
 
-            bool newDir = (wanderPoints[wanderIndex].x - transform.position.x) > 0f;
+            bool newDir = (worldWanderPoints[wanderIndex].x - transform.position.x) > 0f;
 
             ChangeDirection.Invoke(newDir);
 
@@ -65,12 +66,30 @@ public class WalkerEnemyBehavior : MonoBehaviour
         }
     }
 
+    public void Knockback(Vector2 dir) {
+        isWalking = false;
+        rb2d.velocity = dir * 2f;
+        Debug.Log("received knockback in direction " + dir);
+        StopAllCoroutines();
+        StartCoroutine("KnockbackRecovery");
+    }
+    IEnumerator KnockbackRecovery() {
+        yield return new WaitForSeconds(knockbackRecoveryTime);
+        isWalking = true;
+        yield break;
+    }
+
     private void OnDrawGizmos() {
-        foreach (Vector2 p in wanderPoints) {
-            Vector2 mod = Vector2.zero;
-            if (Application.isEditor)
-                mod = transform.position;
-            Gizmos.DrawSphere(p + mod, 0.2f);
+        if (!Application.isPlaying) {
+            foreach (Vector2 p in wanderPoints) {
+                Vector2 mod = transform.position;
+                Gizmos.DrawSphere(p + mod, 0.2f);
+            }
+        }
+        else {
+            foreach (Vector2 p in worldWanderPoints) {
+                Gizmos.DrawSphere(p, 0.15f);
+            }
         }
     }
 }

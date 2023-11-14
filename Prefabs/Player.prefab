@@ -2516,6 +2516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 529a419c1b98c5f4eae20c453ed1a5f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerState: 0
   horizontalSpeed: 3.1
   jumpForce: 9.3
   slowFallSpeed: 2.5
@@ -2630,6 +2631,9 @@ MonoBehaviour:
           m_StringArgument: Dash
           m_BoolArgument: 0
         m_CallState: 2
+  EndDash:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8204492072063908871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2663,7 +2667,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8204492072063908868}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fcfe8a5a5bf37b4e8901bf7f979c41f, type: 3}
   m_Name: 
@@ -2671,6 +2675,9 @@ MonoBehaviour:
   DamageAmount: 5
   PlayerHealth: 50
   HealthSlider: {fileID: 0}
+  nextSceneName: Main Menu
+  currentSceneName: Tutorial Level
+  respawnInCurrentScene: 1
 --- !u!1 &8216800722585693557
 GameObject:
   m_ObjectHideFlags: 0
