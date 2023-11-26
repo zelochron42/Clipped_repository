@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 
 public class Dialogue1 : MonoBehaviour
 {
@@ -10,14 +11,26 @@ public class Dialogue1 : MonoBehaviour
     string[] currentLines;
     public float textSpeed;
 
+    public UnityEvent<int> LineComplete;
+
+    [SerializeField] UnityEvent initialEvent;
+    [SerializeField] UnityEvent[] dialogueEvents;
+    
+
     private int index;
     // Start is called before the first frame update
     void Start()
     {
         BeginDialogue(startupLines);
+        initialEvent.Invoke();
+        LineComplete.AddListener((int line) => {
+            if (line < dialogueEvents.Length)
+                dialogueEvents[line].Invoke();
+        });
     }
 
     public void BeginDialogue(string[] inputLines) {
+        LineComplete.RemoveAllListeners();
         currentLines = inputLines;
         StopAllCoroutines();
         textComponent.text = string.Empty;
@@ -43,6 +56,7 @@ public class Dialogue1 : MonoBehaviour
             {
                 StopAllCoroutines();
                 textComponent.text = currentLines[index];
+                LineComplete.Invoke(index);
             }
         }
     }
@@ -55,9 +69,10 @@ public class Dialogue1 : MonoBehaviour
     {
         foreach (char c in currentLines[index].ToCharArray())
         {
+            yield return new WaitForSeconds(textSpeed);
             textComponent.text += c;
-            yield return new WaitForSeconds(textSpeed)
-;        }
+        }
+        LineComplete.Invoke(index);
     }
     void NextLine()
     {

@@ -38,12 +38,15 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Force with which the player is bounced away from hit targets")]
     [SerializeField] float attackBouncebackForce;
 
+    [SerializeField] bool autoAimAttacks = false;
+
     [Header("Technical data")]
     [SerializeField] float knockbackForce;
     [SerializeField] float raycastMargin; //how far raycasts extend outside of the player's collider
     [SerializeField] float movementControl = 1f;
     [SerializeField] float controlRecoveryRate;
     [SerializeField] float totalControlThreshold;
+
     [SerializeField] Transform rigContainer;
 
     LayerMask ground;
@@ -267,6 +270,7 @@ public class PlayerMovement : MonoBehaviour
         rigContainer.up = dashDirection;
         rb2d.velocity = dashDirection.normalized * dashForce;
         rb2d.gravityScale = 0f;
+        isJumping = false;
         StartDash.Invoke();
         StartCoroutine("DashRecovery");
     }
@@ -286,13 +290,14 @@ public class PlayerMovement : MonoBehaviour
         Vector2 rawInputs = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector2 slashDirection = forward;
         if (rawInputs.magnitude > 0.1f) {
-            slashDirection = direction8(rawInputs);
+            slashDirection = direction4(rawInputs);
         }
         if (OnGround() || isSliding)
             lastAttackGrounded = true;
         else {
             lastAttackGrounded = false;
-            slashDirection = direction8TargetLocator(slashDirection);
+            if (autoAimAttacks)
+                slashDirection = direction8TargetLocator(slashDirection);
         }
         lastAttackDirection = slashDirection;
 
@@ -339,11 +344,12 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator DashRecovery() {
         yield return new WaitForSeconds(dashTime);
+        EndDash.Invoke();
+        yield return new WaitForSeconds(dashTime * 0.2f);
         rigContainer.up = Vector2.up;
         playerState = state.free;
         rb2d.gravityScale = gravityScale;
         movementControl = 0f;
-        EndDash.Invoke();
         yield break;
     }
 
@@ -416,6 +422,18 @@ public class PlayerMovement : MonoBehaviour
         //calculate the new vector
         Vector2 newDirection = new Vector2(Mathf.Cos(finalDir), Mathf.Sin(finalDir));
 
+        return newDirection;
+    }
+    private Vector2 direction4(Vector2 inputDirection) {
+        Vector2 norm = inputDirection.normalized;
+        Vector2 newDirection;
+
+        if (norm.y < -0.1f)
+            newDirection = Vector2.down;
+        else if (norm.y > 0.1f)
+            newDirection = Vector2.up;
+        else
+            newDirection = forward;
         return newDirection;
     }
 

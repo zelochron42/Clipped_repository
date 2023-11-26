@@ -41512,45 +41512,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8204492072063908873, guid: ceff408b815e26542826c882823a1709, type: 3}
-      propertyPath: EndDash.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204492072063908873, guid: ceff408b815e26542826c882823a1709, type: 3}
-      propertyPath: EndDash.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204492072063908873, guid: ceff408b815e26542826c882823a1709, type: 3}
-      propertyPath: EndDash.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1433968632}
-    - target: {fileID: 8204492072063908873, guid: ceff408b815e26542826c882823a1709, type: 3}
-      propertyPath: EndDash.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204492072063908873, guid: ceff408b815e26542826c882823a1709, type: 3}
-      propertyPath: EndDash.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetTrigger
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204492072063908873, guid: ceff408b815e26542826c882823a1709, type: 3}
-      propertyPath: EndDash.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UnityEngine.Animator, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204492072063908873, guid: ceff408b815e26542826c882823a1709, type: 3}
-      propertyPath: EndDash.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: DashStop
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204492072063908873, guid: ceff408b815e26542826c882823a1709, type: 3}
-      propertyPath: EndDash.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ceff408b815e26542826c882823a1709, type: 3}
---- !u!95 &1433968632 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 824971038168914898, guid: ceff408b815e26542826c882823a1709, type: 3}
-  m_PrefabInstance: {fileID: 1433968631}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1434959119
 Mesh:
   m_ObjectHideFlags: 0

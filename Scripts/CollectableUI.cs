@@ -19,13 +19,14 @@ public class CollectableUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!tracker) {
-            TrackerCheck();
-        }
     }
 
     private void TrackerCheck() {
         tracker = CollectableTracker.singleton;
+        if (!tracker) {
+            Debug.LogError("No collectable tracker in scene, please add one.");
+            return;
+        }
         tracker.featherCollected.AddListener(UpdateText);
         UpdateText();
     }
