@@ -1039,6 +1039,7 @@ MonoBehaviour:
   respawns: 1
   despawnTimeAfterDeath: 4
   maxHealth: 3
+  health: 0
   DamageReceived:
     m_PersistentCalls:
       m_Calls:
@@ -1093,6 +1094,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  damagePlayerOnContact: 1
 --- !u!114 &3245720444403262592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2278,7 +2280,7 @@ Animator:
   m_GameObject: {fileID: 6326653464622677465}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9474fcea538e1834880a892d04d57b55, type: 2}
+  m_Controller: {fileID: 9100000, guid: d08f956704f706940bc9c4570e7b6f2d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

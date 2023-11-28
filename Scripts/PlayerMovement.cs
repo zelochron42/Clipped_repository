@@ -81,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
     public UnityEvent StartDash;
     public UnityEvent EndDash;
 
+
     private void Awake() {
         ground = LayerMask.GetMask("Ground");
         rb2d = GetComponent<Rigidbody2D>();

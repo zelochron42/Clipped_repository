@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Click anywhere to close
+  m_text: Click anywhere to advance text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2093ca6d2c9c5324ea21abdd58b9764d, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2093ca6d2c9c5324ea21abdd58b9764d, type: 2}
@@ -366,3 +366,10 @@ MonoBehaviour:
   - Curse the heavens above, and the swine that i've had the displeasure of serving.
   - I am Crstata the clipped, and I will have my revenge on those who cast me out
   textSpeed: 0.05
+  LineComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  initialEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  dialogueEvents: []

@@ -2529,6 +2529,7 @@ MonoBehaviour:
   attackRecovery: 0.08
   attackCooldown: 0.19
   attackBouncebackForce: 8
+  autoAimAttacks: 0
   knockbackForce: 6
   raycastMargin: 0.15
   movementControl: 1
@@ -2701,6 +2702,14 @@ MonoBehaviour:
   DamageAmount: 5
   PlayerHealth: 50
   HealthSlider: {fileID: 0}
+  invulnBlinkSpeed: 4
+  invulnTime: 1
+  invulnBlinkRed: {fileID: 2100000, guid: 7202f8ba7b34ffb4b8f1d54bb9117444, type: 2}
+  invulnBlinkNormal: {fileID: 2100000, guid: 7e32b98b29de34840b10adf9248af606, type: 2}
+  blinkMeshes:
+  - {fileID: 4992370077682311374}
+  - {fileID: 775161140023256137}
+  - {fileID: 2983002142535753355}
   nextSceneName: Main Menu
   currentSceneName: Tutorial Level
   respawnInCurrentScene: 1
