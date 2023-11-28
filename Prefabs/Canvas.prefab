@@ -570,7 +570,7 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9f145a1da91a6d842b39fb13d3098bfb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4d2d1514dbf177741bb5e13f2b03394a, type: 2}
   m_sharedMaterial: {fileID: 8987107862208703618, guid: eda5a667d75557c40b9b9469968a5a50, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2557,7 +2557,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Volume
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9f145a1da91a6d842b39fb13d3098bfb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4d2d1514dbf177741bb5e13f2b03394a, type: 2}
   m_sharedMaterial: {fileID: 8987107862208703618, guid: 9f145a1da91a6d842b39fb13d3098bfb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4515,8 +4515,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Main Menu
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2093ca6d2c9c5324ea21abdd58b9764d, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2093ca6d2c9c5324ea21abdd58b9764d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4d2d1514dbf177741bb5e13f2b03394a, type: 2}
+  m_sharedMaterial: {fileID: -3710149804220361505, guid: 4d2d1514dbf177741bb5e13f2b03394a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5042,8 +5042,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Restart
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2093ca6d2c9c5324ea21abdd58b9764d, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2093ca6d2c9c5324ea21abdd58b9764d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4d2d1514dbf177741bb5e13f2b03394a, type: 2}
+  m_sharedMaterial: {fileID: -3710149804220361505, guid: 4d2d1514dbf177741bb5e13f2b03394a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5179,8 +5179,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2093ca6d2c9c5324ea21abdd58b9764d, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2093ca6d2c9c5324ea21abdd58b9764d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4d2d1514dbf177741bb5e13f2b03394a, type: 2}
+  m_sharedMaterial: {fileID: -3710149804220361505, guid: 4d2d1514dbf177741bb5e13f2b03394a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5612,8 +5612,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Exit
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2093ca6d2c9c5324ea21abdd58b9764d, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2093ca6d2c9c5324ea21abdd58b9764d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4d2d1514dbf177741bb5e13f2b03394a, type: 2}
+  m_sharedMaterial: {fileID: -3710149804220361505, guid: 4d2d1514dbf177741bb5e13f2b03394a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5986,6 +5986,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2973512549007942245}
     m_Modifications:
+    - target: {fileID: 885128570, guid: 0478a63f10d6a1942bd6015a5b0b0797, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 92077c34d809e9c45bacd6defb6bc497, type: 2}
+    - target: {fileID: 885128570, guid: 0478a63f10d6a1942bd6015a5b0b0797, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 92077c34d809e9c45bacd6defb6bc497, type: 2}
+    - target: {fileID: 293956233488581250, guid: 0478a63f10d6a1942bd6015a5b0b0797, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 92077c34d809e9c45bacd6defb6bc497, type: 2}
+    - target: {fileID: 293956233488581250, guid: 0478a63f10d6a1942bd6015a5b0b0797, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 92077c34d809e9c45bacd6defb6bc497, type: 2}
     - target: {fileID: 495873065832233627, guid: 0478a63f10d6a1942bd6015a5b0b0797, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
