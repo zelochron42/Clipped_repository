@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Click anywhere to close
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2093ca6d2c9c5324ea21abdd58b9764d, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2093ca6d2c9c5324ea21abdd58b9764d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4d2d1514dbf177741bb5e13f2b03394a, type: 2}
+  m_sharedMaterial: {fileID: -3710149804220361505, guid: 4d2d1514dbf177741bb5e13f2b03394a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -162,7 +162,7 @@ RectTransform:
   m_GameObject: {fileID: 4806806814667923935}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.79101694, y: 0.79101694, z: 0.79101694}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 495873065832233627}
@@ -170,7 +170,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -17}
   m_SizeDelta: {x: 1500, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6652690642181004054
@@ -203,8 +203,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2093ca6d2c9c5324ea21abdd58b9764d, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2093ca6d2c9c5324ea21abdd58b9764d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 491138f94d5777b4786358785259c743, type: 2}
+  m_sharedMaterial: {fileID: -3710149804220361505, guid: 491138f94d5777b4786358785259c743, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -308,7 +308,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -200}
+  m_AnchoredPosition: {x: 0, y: -228}
   m_SizeDelta: {x: -200, y: -600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6640616124254334685
@@ -332,15 +332,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 238d532c439879f489b416a3de7111fa, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -366,3 +366,10 @@ MonoBehaviour:
   - Curse the heavens above, and the swine that i've had the displeasure of serving.
   - I am Crstata the clipped, and I will have my revenge on those who cast me out
   textSpeed: 0.05
+  LineComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  initialEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  dialogueEvents: []
