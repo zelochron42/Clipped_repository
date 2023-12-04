@@ -5,16 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-
- 
     public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     
     }
-    public void LoadScene2()
+    public void LoadScene(string scene)
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(scene);
 
     }
     public void GoToSettingsMenu()

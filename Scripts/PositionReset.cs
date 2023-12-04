@@ -18,8 +18,12 @@ public class PositionReset : MonoBehaviour
     void Update()
     {
         if (enabled && Input.GetKeyDown(KeyCode.R)) {
-            transform.position = startPos;
+            ResetPos();
         }
+    }
+
+    public void ResetPos() {
+        transform.position = startPos;
     }
 
     private void OnDrawGizmos() {

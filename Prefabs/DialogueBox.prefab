@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Click anywhere to close
+  m_text: Click anywhere to advance text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4d2d1514dbf177741bb5e13f2b03394a, type: 2}
   m_sharedMaterial: {fileID: -3710149804220361505, guid: 4d2d1514dbf177741bb5e13f2b03394a, type: 2}

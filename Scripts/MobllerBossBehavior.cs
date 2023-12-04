@@ -30,6 +30,9 @@ public class MobllerBossBehavior : MonoBehaviour
     [SerializeField] Transform projectileLaunch;
     [SerializeField] float fistSlamRange = 1f;
 
+    [SerializeField] float xLowerLimit;
+    [SerializeField] float xUpperLimit;
+
     float timeIdle = 0f;
     
     // Start is called before the first frame update
@@ -39,10 +42,8 @@ public class MobllerBossBehavior : MonoBehaviour
         anim = GetComponent<Animator>();
         headBaseMaterial = headModel.material;
     }
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.V)) {
-            LaunchProjectile();
-        }
+    private void LateUpdate() {
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, xLowerLimit, xUpperLimit), transform.position.y, transform.position.z);
     }
 
     // Update is called once per frame
@@ -70,19 +71,25 @@ public class MobllerBossBehavior : MonoBehaviour
     }
     void PunchSequenceUpdate() {
         float xDiff = player.position.x - transform.position.x;
-        if (Mathf.Abs(xDiff) <= fistSlamRange) {
-            int attackNum = Random.Range(0, 3);
+        if (Mathf.Abs(xDiff) <= fistSlamRange
+            || Mathf.Abs(xLowerLimit - transform.position.x) < fistSlamRange
+            || Mathf.Abs(xUpperLimit - transform.position.x) < fistSlamRange) {
+            RandomAttack();
+        }
+        else {
+            PursuePlayer(xDiff);
+        }
+    }
+    void RandomAttack() {
+        int attackNum = Random.Range(0, 3);
             if (attackNum == 0)
                 FistSlam();
             else if (attackNum == 1)
                 FistSweep();
             else
                 ProjectileAttack();
-        }
-        else {
-            PursuePlayer(xDiff);
-        }
     }
+
     void PursuePlayer(float xDiff) {
         float rbSpeed = rb2d.velocity.x;
         if (xDiff < 0) {
