@@ -42338,6 +42338,14 @@ PrefabInstance:
       propertyPath: HealthSlider
       value: 
       objectReference: {fileID: 1127079353}
+    - target: {fileID: 1323854948, guid: ceff408b815e26542826c882823a1709, type: 3}
+      propertyPath: nextSceneName
+      value: FinalBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323854948, guid: ceff408b815e26542826c882823a1709, type: 3}
+      propertyPath: currentSceneName
+      value: Ruin_Maze
+      objectReference: {fileID: 0}
     - target: {fileID: 1761819221, guid: ceff408b815e26542826c882823a1709, type: 3}
       propertyPath: sharedProfile
       value: 
