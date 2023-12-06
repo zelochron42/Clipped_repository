@@ -42334,6 +42334,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 470114678, guid: ceff408b815e26542826c882823a1709, type: 3}
+      propertyPath: field of view
+      value: 75
+      objectReference: {fileID: 0}
     - target: {fileID: 1323854948, guid: ceff408b815e26542826c882823a1709, type: 3}
       propertyPath: HealthSlider
       value: 
@@ -42350,6 +42354,10 @@ PrefabInstance:
       propertyPath: sharedProfile
       value: 
       objectReference: {fileID: 11400000, guid: db886a133c5d9504fb3872fcd33d5080, type: 2}
+    - target: {fileID: 8204492070013524625, guid: ceff408b815e26542826c882823a1709, type: 3}
+      propertyPath: field of view
+      value: 75
+      objectReference: {fileID: 0}
     - target: {fileID: 8204492070013524625, guid: ceff408b815e26542826c882823a1709, type: 3}
       propertyPath: m_BackGroundColor.b
       value: 0.111739054
