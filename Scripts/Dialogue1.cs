@@ -43,10 +43,14 @@ public class Dialogue1 : MonoBehaviour
         }
     }
 
+    public void ClearDialogue() {
+        BeginDialogue(new string[0]);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetButtonDown("Fire1"))
         {
             if(textComponent.text == currentLines[index])
             {

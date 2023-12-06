@@ -72,8 +72,8 @@ public class MobllerBossBehavior : MonoBehaviour
     void PunchSequenceUpdate() {
         float xDiff = player.position.x - transform.position.x;
         if (Mathf.Abs(xDiff) <= fistSlamRange
-            || Mathf.Abs(xLowerLimit - transform.position.x) < fistSlamRange
-            || Mathf.Abs(xUpperLimit - transform.position.x) < fistSlamRange) {
+            || Mathf.Abs(xLowerLimit - transform.position.x) < fistSlamRange && xDiff < 0f
+            || Mathf.Abs(xUpperLimit - transform.position.x) < fistSlamRange && xDiff > 0f) {
             RandomAttack();
         }
         else {

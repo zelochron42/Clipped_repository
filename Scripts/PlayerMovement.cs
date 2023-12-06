@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] bool autoAimAttacks = false;
 
     [Header("Technical data")]
+    public bool ignoreInputs = false;
     [SerializeField] float knockbackForce;
     [SerializeField] float raycastMargin; //how far raycasts extend outside of the player's collider
     [SerializeField] float movementControl = 1f;
@@ -130,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
         if (OnGround()) {
             isSliding = false;
             movementControl = 1.1f;
-            rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Max(0f, rb2d.velocity.y));
+            //rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Max(0f, rb2d.velocity.y));
             ResetJumps();
             if (jumpQueued) {
                 Jump();
@@ -211,6 +212,7 @@ public class PlayerMovement : MonoBehaviour
         else if (isWalking) {
             isWalking = false;
             isSliding = true;
+            ResetJumps();
         }
         if (jumpQueued) {
             if (isSliding == true) {
@@ -272,6 +274,7 @@ public class PlayerMovement : MonoBehaviour
         rb2d.velocity = dashDirection.normalized * dashForce;
         rb2d.gravityScale = 0f;
         isJumping = false;
+        isSliding = false;
         StartDash.Invoke();
         StartCoroutine("DashRecovery");
     }
