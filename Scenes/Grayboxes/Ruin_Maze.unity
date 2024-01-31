@@ -38979,6 +38979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c2086e59906834eb8161366b201780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hideInEditor: 1
 --- !u!1 &1171532177
 GameObject:
   m_ObjectHideFlags: 0
@@ -56888,6 +56889,83 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675114714}
   m_Mesh: {fileID: -5495902117074765545, guid: 23b82e692ccc8f8489a36efeb33e0e30, type: 3}
+--- !u!1001 &1676463873
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3447985870563247948, guid: d76f2d870f77988408aceefeba91818c, type: 3}
+      propertyPath: m_RootOrder
+      value: 49
+      objectReference: {fileID: 0}
+    - target: {fileID: 3447985870563247948, guid: d76f2d870f77988408aceefeba91818c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -29.358192
+      objectReference: {fileID: 0}
+    - target: {fileID: 3447985870563247948, guid: d76f2d870f77988408aceefeba91818c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.0916533
+      objectReference: {fileID: 0}
+    - target: {fileID: 3447985870563247948, guid: d76f2d870f77988408aceefeba91818c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 3447985870563247948, guid: d76f2d870f77988408aceefeba91818c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3447985870563247948, guid: d76f2d870f77988408aceefeba91818c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3447985870563247948, guid: d76f2d870f77988408aceefeba91818c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3447985870563247948, guid: d76f2d870f77988408aceefeba91818c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3447985870563247948, guid: d76f2d870f77988408aceefeba91818c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3447985870563247948, guid: d76f2d870f77988408aceefeba91818c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3447985870563247948, guid: d76f2d870f77988408aceefeba91818c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783455920288308041, guid: d76f2d870f77988408aceefeba91818c, type: 3}
+      propertyPath: m_Name
+      value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 7601654412759381799, guid: d76f2d870f77988408aceefeba91818c, type: 3}
+      propertyPath: maxX
+      value: 101.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 7601654412759381799, guid: d76f2d870f77988408aceefeba91818c, type: 3}
+      propertyPath: maxY
+      value: 20.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7601654412759381799, guid: d76f2d870f77988408aceefeba91818c, type: 3}
+      propertyPath: minX
+      value: -1.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 7601654412759381799, guid: d76f2d870f77988408aceefeba91818c, type: 3}
+      propertyPath: minY
+      value: -11.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914377325047294614, guid: d76f2d870f77988408aceefeba91818c, type: 3}
+      propertyPath: sharedProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: db886a133c5d9504fb3872fcd33d5080, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d76f2d870f77988408aceefeba91818c, type: 3}
 --- !u!1 &1681773157
 GameObject:
   m_ObjectHideFlags: 0
@@ -63238,6 +63316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c2086e59906834eb8161366b201780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hideInEditor: 1
 --- !u!4 &2029127580
 Transform:
   m_ObjectHideFlags: 0
