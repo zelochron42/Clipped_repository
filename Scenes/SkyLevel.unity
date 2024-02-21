@@ -367,6 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c2086e59906834eb8161366b201780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoHide: 1
   hideInEditor: 1
 --- !u!4 &69043869
 Transform:
@@ -1295,6 +1296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c2086e59906834eb8161366b201780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoHide: 0
   hideInEditor: 0
 --- !u!4 &363075651
 Transform:
