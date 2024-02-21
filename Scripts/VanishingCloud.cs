@@ -6,8 +6,9 @@ using UnityEngine;
 public class VanishingCloud : MonoBehaviour
 {
     Collider2D col;
+    [SerializeField] bool reappear = true;
     [SerializeField] SkinnedMeshRenderer meshrend;
-    [SerializeField] Animator anim;
+    Animator anim;
     bool vanishing = false;
     // Start is called before the first frame update
     void Start()
@@ -46,6 +47,10 @@ public class VanishingCloud : MonoBehaviour
         for (int i = 10; i >= 0f; i--) {
             yield return new WaitForSeconds(0.05f);
             meshrend.material.color = new Color(c.r, c.g, c.b, i/10f);
+        }
+        if (!reappear) {
+            Destroy(gameObject);
+            yield break;
         }
         yield return new WaitForSeconds(1f);
         col.enabled = true;
