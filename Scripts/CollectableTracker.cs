@@ -38,7 +38,7 @@ public class CollectableTracker : MonoBehaviour
     }
 
     public void AddFeather(string newFeather) {
-        if (!feathersCollected.ContainsKey(newFeather))
+        if (newFeather.ToLower() != "key" && !feathersCollected.ContainsKey(newFeather))
             feathersCollected.Add(newFeather, false);
     }
 

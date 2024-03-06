@@ -6,7 +6,7 @@ using UnityEngine.Events;
 /// <summary>
 /// Code to control the player's movement
 /// Written by Joshua Cashmore,
-/// Last updated 11/8/2023
+/// Last updated 3/6/2024
 /// </summary>
 public class PlayerMovement : MonoBehaviour
 {
@@ -47,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float movementControl = 1f;
     [SerializeField] float controlRecoveryRate;
     [SerializeField] float totalControlThreshold;
+    [SerializeField] PhysicsMaterial2D friction;
+    [SerializeField] PhysicsMaterial2D frictionless;
 
     [SerializeField] Transform rigContainer;
 
@@ -155,6 +157,7 @@ public class PlayerMovement : MonoBehaviour
 
     //read player inputs to determine horizontal speed
     private void FreeMovement() {
+        rb2d.sharedMaterial = frictionless;
         float inputX = Input.GetAxisRaw("Horizontal");
         if (Mathf.Abs(inputX) > 0.1f) {
             SetForwardDirection(new Vector2(inputX, 0f));
@@ -165,10 +168,12 @@ public class PlayerMovement : MonoBehaviour
             }
         } else {
             inputX = 0f;
+            rb2d.sharedMaterial = friction;
             if (isWalking) {
                 isWalking = false;
-                if (OnGround())
+                if (OnGround()) {
                     StartIdle.Invoke();
+                }
             }
         }
         float newSpeed = ApplyInputMovement(inputX);
