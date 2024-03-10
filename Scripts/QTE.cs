@@ -10,12 +10,12 @@ public class QTE : MonoBehaviour
     public TextMeshProUGUI PassBox;
     public int QTEGen;
     public int WaitingForKey;
-    public int CorrectKey;
+    public bool CorrectKey;
     public int CountingDown;
     void Start()
     {
-        DisplayBox = FindObjectOfType<TextMeshProUGUI>();
-        PassBox = FindObjectOfType<TextMeshProUGUI>();
+        /*DisplayBox = FindObjectOfType<TextMeshProUGUI>();
+        PassBox = FindObjectOfType<TextMeshProUGUI>();*/
 
     }
     void Update()
@@ -45,16 +45,16 @@ public class QTE : MonoBehaviour
         {
             if (Input.anyKeyDown)
             {
-                if (Input.GetButtonDown("E"))
+                if (Input.GetButton("E"))
                 {
-                    CorrectKey = 1;
+                    CorrectKey = true;
                     Debug.Log("Correct!");
                     StartCoroutine(KeyPressing());
                     
                 }
                 else
                 {
-                    CorrectKey = 2;
+                    CorrectKey = false;
                     StartCoroutine(KeyPressing());
                     Debug.Log("INCorrect!");
                 }
@@ -64,15 +64,15 @@ public class QTE : MonoBehaviour
         {
             if (Input.anyKeyDown)
             {
-                if (Input.GetButtonDown("R"))
+                if (Input.GetButton("R"))
                 {
-                    CorrectKey = 1;
+                    CorrectKey = true;
                     Debug.Log("Correct!");
                     StartCoroutine(KeyPressing());
                 }
                 else
                 {
-                    CorrectKey = 2;
+                    CorrectKey = false;
                     StartCoroutine(KeyPressing());
                     Debug.Log("INCorrect!");
                 }
@@ -82,15 +82,15 @@ public class QTE : MonoBehaviour
         {
             if (Input.anyKeyDown)
             {
-                if (Input.GetButtonDown("T"))
+                if (Input.GetButton("T"))
                 {
-                    CorrectKey = 1;
+                    CorrectKey = true;
                     Debug.Log("Correct!");
                     StartCoroutine(KeyPressing());
                 }
                 else
                 {
-                    CorrectKey = 2;
+                    CorrectKey = false;
                     StartCoroutine(KeyPressing());
                     Debug.Log("INCorrect!");
                 }
@@ -100,24 +100,24 @@ public class QTE : MonoBehaviour
     IEnumerator KeyPressing()
     {
         QTEGen = 4;
-        if(CorrectKey == 1)
+        if(CorrectKey == true)
         {
             CountingDown = 2;
             PassBox.text = "PASS!";
             yield return new WaitForSeconds(1.5f);
-            CorrectKey = 0;
+            CorrectKey = false;
             PassBox.text = "";
             DisplayBox.text = "";
             yield return new WaitForSeconds(1.5f);
             WaitingForKey = 0;
             CountingDown = 1;
         }
-        else if (CorrectKey == 2)
+        else if (CorrectKey == false)
         {
             CountingDown = 2;
             PassBox.text = "FAIL!";
             yield return new WaitForSeconds(1.5f);
-            CorrectKey = 0;
+            CorrectKey = false;
             PassBox.text = "";
             DisplayBox.text = "";
             yield return new WaitForSeconds(1.5f);
@@ -134,7 +134,7 @@ public class QTE : MonoBehaviour
             CountingDown = 2;
             PassBox.text = "";
             yield return new WaitForSeconds(1.5f);
-            CorrectKey = 0;
+            CorrectKey = false;
             PassBox.text = "";
             DisplayBox.text = "";
             yield return new WaitForSeconds(1.5f);
