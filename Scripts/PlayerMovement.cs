@@ -84,6 +84,22 @@ public class PlayerMovement : MonoBehaviour
     public UnityEvent StartDash;
     public UnityEvent EndDash;
 
+    public void SetInputs(bool canInput) {
+        if (canInput)
+            playerState = state.free;
+        else {
+            playerState = state.busy;
+            StopAllCoroutines();
+            canAttack = true;
+            rigContainer.up = Vector2.up;
+            rb2d.gravityScale = gravityScale;
+            rb2d.velocity = Vector2.zero;
+            rb2d.sharedMaterial = friction;
+            movementControl = 0f;
+            StartIdle.Invoke();
+        }
+    }
+
 
     private void Awake() {
         ground = LayerMask.GetMask("Ground");

@@ -17,7 +17,10 @@ public class CristataAnimationHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        anim.SetFloat("XVelocity", Mathf.Abs(Input.GetAxisRaw("Horizontal")));
+        if (plrmov.playerState == PlayerMovement.state.free)
+            anim.SetFloat("XVelocity", Mathf.Abs(Input.GetAxisRaw("Horizontal")));
+        else
+            anim.SetFloat("XVelocity", 0f);
         anim.SetFloat("YVelocity", rb2d.velocity.y);
         anim.SetBool("OnGround", plrmov.OnGround());
         anim.SetBool("IsSliding", plrmov.isSliding);
