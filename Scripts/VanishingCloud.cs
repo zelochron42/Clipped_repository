@@ -45,7 +45,7 @@ public class VanishingCloud : MonoBehaviour
         col.enabled = false;
         Color c = meshrend.material.color;
         for (int i = 10; i >= 0f; i--) {
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.02f);
             meshrend.material.color = new Color(c.r, c.g, c.b, i/10f);
         }
         if (!reappear) {
@@ -56,7 +56,7 @@ public class VanishingCloud : MonoBehaviour
         col.enabled = true;
         vanishing = false;
         for (int i = 0; i <= 10f; i++) {
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.03f);
             meshrend.material.color = new Color(c.r, c.g, c.b, i/10f);
         }
         yield break;

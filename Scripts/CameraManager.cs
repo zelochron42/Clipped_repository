@@ -40,6 +40,27 @@ public class CameraManager : MonoBehaviour
         float goalY = Mathf.Clamp(player.position.y, minY, maxY);
         transform.position = new Vector3(goalX, goalY, transform.position.z);
     }
+    public void SetMinY(float newBound) {
+        StartCoroutine(BoundLerp(minY, (float f)=> { minY = f; }, newBound));
+    }
+    public void SetMinX(float newBound) {
+        StartCoroutine(BoundLerp(minX, (float f) => { minX = f; }, newBound));
+    }
+    public void SetMaxY(float newBound) {
+        StartCoroutine(BoundLerp(maxY, (float f) => { maxY = f; }, newBound));
+    }
+    public void SetMaxX(float newBound) {
+        StartCoroutine(BoundLerp(maxX, (float f) => { maxX = f; }, newBound));
+    }
+    delegate void LerpTarget(float nb);
+    IEnumerator BoundLerp(float oldBound, LerpTarget lt, float newBound) {
+        for (int i = 0; i <= 60; i++) {
+            float boundStep = Mathf.Lerp(oldBound, newBound, i / 60f);
+            lt(boundStep);
+            yield return new WaitForSeconds(0.05f);
+        }
+        yield break;
+    }
 
     public void DramaticZoom(bool goIn) {
         StopAllCoroutines();

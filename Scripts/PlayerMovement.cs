@@ -6,7 +6,7 @@ using UnityEngine.Events;
 /// <summary>
 /// Code to control the player's movement
 /// Written by Joshua Cashmore,
-/// Last updated 3/6/2024
+/// Last updated 3/13/2024
 /// </summary>
 public class PlayerMovement : MonoBehaviour
 {
@@ -147,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
         if (dashQueued) {
             Dash();
         }
-        else if (attackQueued) {
+        else if (attackQueued && !isSliding) {
             Attack();
         }
         jumpQueued = false;
@@ -203,6 +203,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (isSliding && Input.GetAxisRaw("Vertical") <= -0.1f)
             isSliding = false;
+
+        if (isSliding && Mathf.Abs(Input.GetAxisRaw("Horizontal") - forward.x) > 1.1f) { //if horizontal input is going away from the wall, drop off the wall
+            isSliding = false;
+        }
 
         if (rb2d.velocity.y <= -slideFallSpeed && isSliding)
             rb2d.velocity = new Vector2(0f, -slideFallSpeed);

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Debug script for resetting player position as necessary
+/// Script for resetting player position and setting checkpoints
 /// Written by Joshua Cashmore
-/// last updated 3/6/2024
+/// last updated 3/10/2024
 /// </summary>
 
 public class PositionReset : MonoBehaviour
@@ -29,7 +29,12 @@ public class PositionReset : MonoBehaviour
             ResetPos();
         }
     }
-
+    public void UpdateCheckpoint(Transform newCheckpoint) {
+        startPos = newCheckpoint.position;
+    }
+    public void UpdateThreshold(float newThreshold) {
+        resetThreshold = newThreshold;
+    }
     public void ResetPos() {
         transform.position = startPos;
         rb2d.velocity = Vector2.zero;
