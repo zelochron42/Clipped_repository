@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float attackCooldown;
     [Tooltip("Force with which the player is bounced away from hit targets")]
     [SerializeField] float attackBouncebackForce;
+    [SerializeField] float bounceUpLimit;
 
     [SerializeField] bool autoAimAttacks = false;
 
@@ -67,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isSliding = false;
 
     [SerializeField] int maxDashes;
+    [SerializeField] int groundDashes;
     [SerializeField] int remainingDashes = 0;
 
     [SerializeField] int maxJumps;
@@ -75,6 +77,10 @@ public class PlayerMovement : MonoBehaviour
     bool isJumping = false;
 
     float gravityScale;
+    [SerializeField] float gravityPercentage = 100f;
+    [SerializeField] float gravityRecoveryPerFrame = 1.67f;
+    [SerializeField] float hoverParticleThreshold = 60f;
+    [SerializeField] ParticleSystem hoverParticles;
 
     public UnityEvent<bool> ChangeDirection; //fires when 'forward' variable changes
     public UnityEvent StartWalk;
@@ -257,6 +263,7 @@ public class PlayerMovement : MonoBehaviour
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
             isJumping = true;
             movementControl = 1f;
+            gravityPercentage = 100f;
             StartJump.Invoke();
         }
         else if (remainingJumps > 0) {
@@ -264,6 +271,7 @@ public class PlayerMovement : MonoBehaviour
             remainingJumps--;
             isJumping = true;
             movementControl = 1f;
+            gravityPercentage = 100f;
             StartJump.Invoke();
         }
     }
@@ -276,6 +284,7 @@ public class PlayerMovement : MonoBehaviour
         rb2d.velocity = new Vector2(-forward.x * horizontalSpeed, jumpForce);
         isJumping = true;
         movementControl = 0f;
+        gravityPercentage = 100f;
     }
 
     private void Dash() {
@@ -300,7 +309,9 @@ public class PlayerMovement : MonoBehaviour
         rb2d.gravityScale = 0f;
         isJumping = false;
         isSliding = false;
+        gravityPercentage = 100f;
         StartDash.Invoke();
+        hoverParticles.Stop();
         StartCoroutine("DashRecovery");
     }
 
@@ -362,8 +373,16 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("ATTACK LANDED");
         Vector2 bounceDirection = -lastAttackDirection;
         if (!lastAttackGrounded) {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, attackBouncebackForce);
+            //rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Max(bounceDirection.y * attackBouncebackForce, bounceUpLimit));
             movementControl = 0.5f;
+            if (bounceDirection.y <= 0f) {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Max(rb2d.velocity.y, bounceUpLimit));
+                gravityPercentage = 0f;
+            }
+            else {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, bounceDirection.y * attackBouncebackForce);
+            }
+            RecoverDash();
             ResetJumps();
         }
         else {
@@ -382,8 +401,11 @@ public class PlayerMovement : MonoBehaviour
         yield break;
     }
 
+    private void RecoverDash() {
+        remainingDashes = Mathf.Min(remainingDashes + 1, maxDashes);
+    }
     private void ResetJumps() {
-        remainingDashes = maxDashes;
+        remainingDashes = Mathf.Max(remainingDashes, groundDashes);
         remainingJumps = maxJumps;
         rb2d.gravityScale = gravityScale;
         isJumping = false;
@@ -397,6 +419,13 @@ public class PlayerMovement : MonoBehaviour
     }
     
     private void ControlUpdate() {
+        gravityPercentage = Mathf.Min(gravityPercentage + gravityRecoveryPerFrame, 100f);
+        rb2d.gravityScale = gravityScale * (gravityPercentage / 100f);
+        if (gravityPercentage <= hoverParticleThreshold && !hoverParticles.isPlaying)
+            hoverParticles.Play();
+        else if (gravityPercentage > hoverParticleThreshold && hoverParticles.isPlaying)
+            hoverParticles.Stop();
+
         movementControl += controlRecoveryRate;
         if (movementControl >= totalControlThreshold)
             movementControl = 1.1f;

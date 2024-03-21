@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] string nextSceneName;
     public string currentSceneName;
     [SerializeField] bool respawnInCurrentScene = true;
+
+    public UnityEvent DamageReceived;
 
 
     bool loadingNewScene = false;
@@ -88,6 +91,7 @@ public class PlayerStats : MonoBehaviour
     {
         movement.Knockback(originPoint);
         if (!invuln) {
+            DamageReceived.Invoke();
             PlayerHealth -= DamageAmount;
             if (PlayerHealth <= 0) {
                 Debug.Log("Player is big dead");

@@ -8,9 +8,17 @@ public class PauseMenu : MonoBehaviour
     // Start is called before the first frame update
     public static bool isPaused = false;
     public GameObject pauseMenu;
+    [SerializeField] float hitStopTime = 0.1f;
+
+    private void Awake() {
+        StopAllCoroutines();
+        Time.timeScale = 1f;
+    }
     void Start()
     {
         //pauseMenu.SetActive(false)  ;
+        PlayerStats ps = FindObjectOfType<PlayerStats>();
+        ps.DamageReceived.AddListener(HitStop);
     }
 
     // Update is called once per frame
@@ -29,6 +37,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void PauseGame()
     {
+        StopAllCoroutines();
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
@@ -47,5 +56,16 @@ public class PauseMenu : MonoBehaviour
     public void GoToMainMenu()
     {
         SceneManager.LoadScene("Main Menu");
+    }
+
+    public void HitStop() {
+        StopAllCoroutines();
+        Time.timeScale = 0f;
+        StartCoroutine("EndHitStop");
+    }
+    IEnumerator EndHitStop() {
+        yield return new WaitForSecondsRealtime(hitStopTime);
+        Time.timeScale = 1f;
+        yield break;
     }
 }

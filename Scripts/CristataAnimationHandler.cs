@@ -17,7 +17,7 @@ public class CristataAnimationHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (plrmov.playerState == PlayerMovement.state.free)
+        if (plrmov.playerState == PlayerMovement.state.free && plrmov.enabled == true)
             anim.SetFloat("XVelocity", Mathf.Abs(Input.GetAxisRaw("Horizontal")));
         else
             anim.SetFloat("XVelocity", 0f);

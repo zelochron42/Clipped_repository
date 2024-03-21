@@ -6,12 +6,14 @@ using UnityEngine.Events;
 public class EnemyHealth : MonoBehaviour
 {
     public bool respawns = true;
+    [SerializeField] bool hitstopWhenDamaged = true;
     [SerializeField] float despawnTimeAfterDeath = 0f;
     bool dead = false;
     [SerializeField] float maxHealth;
     [SerializeField] float health;
     public UnityEvent<Vector2> DamageReceived;
     public UnityEvent Death;
+
 
     public bool damagePlayerOnContact = true;
     public void AttackDamage(Vector2 attackDirection) {
@@ -29,6 +31,10 @@ public class EnemyHealth : MonoBehaviour
             if (er)
                 er.AddToRespawn(this);
         }
+        if (!hitstopWhenDamaged)
+            return;
+        PauseMenu pm = FindObjectOfType<PauseMenu>();
+        DamageReceived.AddListener((Vector2 _) => { pm.HitStop(); });
 
     }
     private void OnTriggerEnter2D(Collider2D collision) {

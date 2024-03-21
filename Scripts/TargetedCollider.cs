@@ -5,7 +5,7 @@ using UnityEngine.Events;
 /// <summary>
 /// Code to be placed on melee weapon slash effects
 /// Written by Joshua Cashmore
-/// last updated 11/8/2023
+/// last updated 3/18/2024
 /// </summary>
 public class TargetedCollider : MonoBehaviour
 {
