@@ -89,6 +89,8 @@ public class PlayerMovement : MonoBehaviour
     public UnityEvent StartWalljump;
     public UnityEvent StartDash;
     public UnityEvent EndDash;
+    public UnityEvent AttackStart;
+    public UnityEvent UIUpdate;
 
     public void SetInputs(bool canInput) {
         if (canInput)
@@ -291,6 +293,7 @@ public class PlayerMovement : MonoBehaviour
         dashQueued = false;
         if (remainingDashes > 0) {
             remainingDashes--;
+            UIUpdate.Invoke();
         }
         else {
             return;
@@ -321,6 +324,7 @@ public class PlayerMovement : MonoBehaviour
         if (canAttack) {
             canAttack = false;
             playerState = state.busy;
+            AttackStart.Invoke();
             StartCoroutine("SwordAttack");
         }
     }
@@ -403,12 +407,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void RecoverDash() {
         remainingDashes = Mathf.Min(remainingDashes + 1, maxDashes);
+        UIUpdate.Invoke();
     }
     private void ResetJumps() {
         remainingDashes = Mathf.Max(remainingDashes, groundDashes);
         remainingJumps = maxJumps;
         rb2d.gravityScale = gravityScale;
         isJumping = false;
+        UIUpdate.Invoke();
     }
     private void SetForwardDirection(Vector2 newDir) {
         newDir = newDir.normalized;
@@ -506,5 +512,9 @@ public class PlayerMovement : MonoBehaviour
         isJumping = false;
         isSliding = false;
         movementControl = 0f;
+    }
+
+    public int GetDashes() {
+        return remainingDashes;
     }
 }

@@ -5,9 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class LevelSkipper : MonoBehaviour
 {
+    public static LevelSkipper singleton;
     // Start is called before the first frame update
     void Start()
     {
+        if (singleton != null && singleton != this) {
+            Destroy(gameObject);
+            return;
+        }
+        else {
+            singleton = this;
+        }
         DontDestroyOnLoad(gameObject);
     }
 
@@ -27,6 +35,6 @@ public class LevelSkipper : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     public void LoadMenu() {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 }

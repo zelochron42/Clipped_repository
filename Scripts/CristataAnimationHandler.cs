@@ -30,4 +30,8 @@ public class CristataAnimationHandler : MonoBehaviour
     public void JumpTrigger() {
         anim.SetTrigger("Jump");
     }
+
+    public void AttackTrigger() {
+        anim.SetTrigger("Attack");
+    }
 }

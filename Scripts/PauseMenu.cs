@@ -8,7 +8,7 @@ public class PauseMenu : MonoBehaviour
     // Start is called before the first frame update
     public static bool isPaused = false;
     public GameObject pauseMenu;
-    [SerializeField] float hitStopTime = 0.1f;
+    float hitStopTime = 0.05f;
 
     private void Awake() {
         StopAllCoroutines();
