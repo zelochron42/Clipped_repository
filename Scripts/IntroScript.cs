@@ -15,6 +15,7 @@ public class IntroScript : MonoBehaviour
     public GameObject Camera3;
     public Animator transition;
     public float transitionTime;
+    public float BeginSlowCamTime;
 
 
 
@@ -22,7 +23,7 @@ public class IntroScript : MonoBehaviour
     {
         startTimeScale = Time.timeScale;
         startFixedDeltaTime = Time.fixedDeltaTime;
-  
+        StartCoroutine(SlowMotionTimer());
     }
 
     // Update is called once per frame
@@ -47,12 +48,22 @@ public class IntroScript : MonoBehaviour
             ReverseTime();
         }
      }
-        private void OnTriggerEnter(Collider collision)
+    IEnumerator SlowMotionTimer()
+
+    {
+        yield return new WaitForSeconds(BeginSlowCamTime);
+        StartSlow();
+        yield return new WaitForSeconds(BeginSlowCamTime);
+
+
+
+    }
+    private void OnTriggerEnter(Collider collision)
         {
         if (collision.gameObject.CompareTag("SlowMotionTrigger"))
         {
 
-            
+            Debug.Log("Slow");
             StartSlow();
         }
         if (collision.gameObject.CompareTag("NextScene"))

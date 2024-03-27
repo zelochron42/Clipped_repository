@@ -22,7 +22,7 @@ MonoBehaviour:
     defaultState: 1
   intensity:
     overrideState: 1
-    value: 0.934
+    value: 0.31
   fastMode:
     overrideState: 1
     value: 0
@@ -66,10 +66,10 @@ MonoBehaviour:
     value: 1
   filtering:
     overrideState: 1
-    value: {x: 54, y: 99}
+    value: {x: 15.294049, y: 68.870476}
   minLuminance:
     overrideState: 1
-    value: 0.5
+    value: -0.15
   maxLuminance:
     overrideState: 1
     value: 9
@@ -120,7 +120,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 65.3
+    value: 62.75
   threshold:
     overrideState: 1
     value: 1.1
@@ -144,8 +144,8 @@ MonoBehaviour:
     value: 0
   dirtTexture:
     overrideState: 1
-    value: {fileID: 2800000, guid: 9da2640a4e74b9f43b33d827c24c4b2e, type: 3}
+    value: {fileID: 2800000, guid: 274355f8343c4ee429e0769f4e784abe, type: 3}
     defaultState: 1
   dirtIntensity:
     overrideState: 1
-    value: 0
+    value: 0.03
