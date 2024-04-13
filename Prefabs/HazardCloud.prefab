@@ -316,6 +316,7 @@ GameObject:
   - component: {fileID: 5607629917850097066}
   - component: {fileID: 5264119065056877988}
   - component: {fileID: 6705294818137811288}
+  - component: {fileID: 4577642493416928510}
   m_Layer: 0
   m_Name: HazardCloud
   m_TagString: Damage
@@ -452,6 +453,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reappear: 0
   meshrend: {fileID: 8792213185344661473}
+--- !u!114 &4577642493416928510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3814628145490505623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2338cb90d900a6f42bcfdfa66408f97f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5977277615533058190
 GameObject:
   m_ObjectHideFlags: 0

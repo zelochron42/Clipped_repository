@@ -12,6 +12,9 @@ public class DialogueEventTrigger : PhysicalTrigger
         
     }
     protected override void OnTriggerEnter2D(Collider2D collision) {
+        if (!collision.gameObject.CompareTag("Player"))
+            return;
+
         bool disableOnFinish = false;
         if (singleUse) {
             disableOnFinish = true;

@@ -54,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform rigContainer;
 
     LayerMask ground;
+    LayerMask wall;
     
     Rigidbody2D rb2d;
     
@@ -110,7 +111,8 @@ public class PlayerMovement : MonoBehaviour
 
 
     private void Awake() {
-        ground = LayerMask.GetMask("Ground");
+        ground = LayerMask.GetMask("Ground", "Ice");
+        wall = LayerMask.GetMask("Ground");
         rb2d = GetComponent<Rigidbody2D>();
         col2d = GetComponent<Collider2D>();
         gravityScale = rb2d.gravityScale;
@@ -442,7 +444,7 @@ public class PlayerMovement : MonoBehaviour
         return groundCheck;
     }
     private bool FacingWall() {
-        RaycastHit2D wallCheck = Physics2D.Raycast(transform.position, forward, col2d.bounds.extents.x + raycastMargin, ground);
+        RaycastHit2D wallCheck = Physics2D.Raycast(transform.position, forward, col2d.bounds.extents.x + raycastMargin, wall);
         return wallCheck;
     }
 

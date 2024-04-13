@@ -55,6 +55,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void GoToMainMenu()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Main Menu");
     }
 
@@ -67,5 +68,9 @@ public class PauseMenu : MonoBehaviour
         yield return new WaitForSecondsRealtime(hitStopTime);
         Time.timeScale = 1f;
         yield break;
+    }
+
+    public void ExitGame() {
+        Application.Quit();
     }
 }

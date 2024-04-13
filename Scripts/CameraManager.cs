@@ -11,7 +11,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] float minY;
     [SerializeField] float maxY;
     Transform player;
-    [SerializeField] int zoomStepCount = 10;
+    [SerializeField] int zoomStepCount = 60;
     [SerializeField] float zoomStepTime = 0.05f;
     float initialFOV;
     [SerializeField] float zoomMultiplier = 2f;

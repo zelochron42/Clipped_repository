@@ -8,17 +8,11 @@ public class VanishingCloud : MonoBehaviour
     Collider2D col;
     [SerializeField] bool reappear = true;
     [SerializeField] SkinnedMeshRenderer meshrend;
-    Animator anim;
     bool vanishing = false;
     // Start is called before the first frame update
     void Start()
     {
         col = GetComponent<Collider2D>();
-        anim = GetComponentInChildren<Animator>();
-        if (anim) {
-            AnimatorStateInfo currentAnim = anim.GetCurrentAnimatorStateInfo(0);
-            anim.Play(currentAnim.fullPathHash, 0, Random.Range(0f, 1f));
-        }
     }
 
     // Update is called once per frame
