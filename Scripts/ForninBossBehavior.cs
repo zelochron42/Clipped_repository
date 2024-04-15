@@ -22,6 +22,8 @@ public class ForninBossBehavior : MonoBehaviour
     [SerializeField] float turningSpeed = 45f;
     [SerializeField] float knockbackForce = 5f;
     [SerializeField] float proximityVelocityDampening = 3f;
+
+    [SerializeField] bool activated = false;
     Rigidbody2D rb2d;
     Collider2D col2d;
     Transform player;
@@ -37,7 +39,7 @@ public class ForninBossBehavior : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        if (neutral)
+        if (activated && neutral)
             NeutralUpdate();
     }
 
@@ -158,5 +160,24 @@ public class ForninBossBehavior : MonoBehaviour
         aimAngle += Mathf.Deg2Rad * Random.Range(-fireballOffsetDegrees, fireballOffsetDegrees);
         newFireball.velocity = new Vector2(Mathf.Cos(aimAngle), Mathf.Sin(aimAngle)) * fireballSpeed;
         Destroy(newFireball.gameObject, fireballLifetime);
+    }
+
+    public void PrebattleReposition() {
+        StartCoroutine("RepositionTween");
+    }
+    [SerializeField] Vector2 repositionGoal;
+    [SerializeField] int repositionSteps;
+    IEnumerator RepositionTween() {
+        Vector2 startPos = transform.position;
+        for (int i = 0; i < repositionSteps; i++) {
+            transform.position = Vector2.Lerp(startPos, repositionGoal, (float)i / repositionSteps);
+            yield return null;
+        }
+        yield break;
+    }
+
+    public void StartFight() {
+        activated = true;
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 }

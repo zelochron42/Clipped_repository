@@ -7,8 +7,8 @@ using UnityEngine;
 /// </summary>
 public class MobllerBossBehavior : MonoBehaviour
 {
-    enum attack {none, pursuit, leftSlam, putridBreath, rightHook};
-    attack currentState = attack.none;
+    enum attack {none, pursuit, leftSlam, putridBreath, rightHook, overhead};
+    [SerializeField] attack currentState = attack.none;
     Rigidbody2D rb2d;
     Animator anim;
     [SerializeField] Rigidbody2D player;
@@ -29,9 +29,12 @@ public class MobllerBossBehavior : MonoBehaviour
     [SerializeField] Rigidbody2D projectilePrefab;
     [SerializeField] Transform projectileLaunch;
     [SerializeField] float fistSlamRange = 1f;
+    [SerializeField] float antiAirThreshold;
 
     [SerializeField] float xLowerLimit;
     [SerializeField] float xUpperLimit;
+
+    [SerializeField] bool activated = false;
 
     float timeIdle = 0f;
     
@@ -43,12 +46,16 @@ public class MobllerBossBehavior : MonoBehaviour
         headBaseMaterial = headModel.material;
     }
     private void LateUpdate() {
+        if (!activated)
+            return;
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, xLowerLimit, xUpperLimit), transform.position.y, transform.position.z);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!activated)
+            return;
         switch (currentState) {
             case attack.none:
                 if (player != null)
@@ -74,7 +81,11 @@ public class MobllerBossBehavior : MonoBehaviour
         if (Mathf.Abs(xDiff) <= fistSlamRange
             || Mathf.Abs(xLowerLimit - transform.position.x) < fistSlamRange && xDiff < 0f
             || Mathf.Abs(xUpperLimit - transform.position.x) < fistSlamRange && xDiff > 0f) {
-            RandomAttack();
+
+            if (player.position.y < antiAirThreshold)
+                RandomAttack();
+            else
+                RandomOverhead();
         }
         else {
             PursuePlayer(xDiff);
@@ -88,6 +99,13 @@ public class MobllerBossBehavior : MonoBehaviour
                 FistSweep();
             else
                 ProjectileAttack();
+    }
+    void RandomOverhead() {
+        int attackNum = Random.Range(0, 2);
+        if (attackNum == 0)
+            OverheadClap();
+        else
+            ProjectileAttack();
     }
 
     void PursuePlayer(float xDiff) {
@@ -121,6 +139,12 @@ public class MobllerBossBehavior : MonoBehaviour
         currentState = attack.putridBreath;
         rb2d.velocity *= 0f;
         anim.SetTrigger("Vomit");
+    }
+
+    void OverheadClap() {
+        currentState = attack.overhead;
+        rb2d.velocity *= 0f;
+        anim.SetTrigger("Overhead");
     }
     public void LaunchProjectile() {
         Rigidbody2D newProjectile = Instantiate(projectilePrefab);
@@ -160,4 +184,7 @@ public class MobllerBossBehavior : MonoBehaviour
         RightFistCollider.enabled = false;
     }
 
+    public void Activate() {
+        activated = true;
+    }
 }
