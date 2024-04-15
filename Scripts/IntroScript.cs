@@ -16,6 +16,7 @@ public class IntroScript : MonoBehaviour
     public Animator transition;
     public float transitionTime;
     public float BeginSlowCamTime;
+    
 
 
 
@@ -23,7 +24,7 @@ public class IntroScript : MonoBehaviour
     {
         startTimeScale = Time.timeScale;
         startFixedDeltaTime = Time.fixedDeltaTime;
-        StartCoroutine(SlowMotionTimer());
+       // StartCoroutine(SlowMotionTimer());
     }
 
     // Update is called once per frame
