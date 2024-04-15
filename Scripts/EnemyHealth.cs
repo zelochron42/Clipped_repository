@@ -12,6 +12,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] float maxHealth;
     [SerializeField] float health;
     public UnityEvent<Vector2> DamageReceived;
+    public UnityEvent<float> HealthUpdate; //0 = dead, 1 = full health
     public UnityEvent Death;
 
 
@@ -19,6 +20,7 @@ public class EnemyHealth : MonoBehaviour
     public void AttackDamage(Vector2 attackDirection) {
         health -= 1f;
         DamageReceived.Invoke(attackDirection);
+        HealthUpdate.Invoke(health / maxHealth);
     }
     private void Awake() {
         health = maxHealth;
