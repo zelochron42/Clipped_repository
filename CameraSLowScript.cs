@@ -47,14 +47,14 @@ public class CameraSLowScript : MonoBehaviour
 
 
     }
-    void StartSlow()
+    public void StartSlow()
     {
         SlowMotion = true;
         Time.timeScale = slowMotionScale;
         Time.fixedDeltaTime = startFixedDeltaTime * slowMotionScale;
        
     }
-    void StopSlow()
+    public void StopSlow()
     {
         SlowMotion = false;
         Time.timeScale = startTimeScale;

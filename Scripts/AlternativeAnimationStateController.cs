@@ -8,7 +8,7 @@ public class AlternativeAnimationStateController : MonoBehaviour
     int isWalkingHash;
     int isBeginningHash;
     int isIdleHash;
-    public float BeginTime;
+   
 
 
     // Start is called before the first frame update
@@ -17,10 +17,10 @@ public class AlternativeAnimationStateController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         isWalkingHash = Animator.StringToHash("isWalking");
-        isBeginningHash = Animator.StringToHash("Begin");
-        isIdleHash = Animator.StringToHash("Idle");
+       
+        isIdleHash = Animator.StringToHash("isIdle");
         animator.SetBool(isIdleHash, true);
-        StartCoroutine(Begin());
+   
     }
 
     // Update is called once per frame
@@ -30,42 +30,22 @@ public class AlternativeAnimationStateController : MonoBehaviour
         bool isBeginning = animator.GetBool(isBeginningHash);
         bool isWalking = animator.GetBool(isWalkingHash);
         bool forwardPressed = Input.GetKey("w");
-        bool beginPress = Input.GetKey("e");
+        
 
         if (forwardPressed)
         {
             animator.SetBool(isWalkingHash, true);
-        }
-        if (isWalking && !forwardPressed)
-        {
-            animator.SetBool(isWalkingHash, false);
-        }
-        if (beginPress)
-        {
-            animator.SetBool(isBeginningHash, true);
             animator.SetBool(isIdleHash, false);
         }
-        if(isIdle && !beginPress)
+     
+        if(!forwardPressed)
         {
+            animator.SetBool(isWalkingHash, false);
             animator.SetBool(isIdleHash, true);
         }
     }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Test"))
-        {
-            //Destroy(other.gameObject);
-            Debug.Log("Working");
-        }
-    }
-    IEnumerator Begin()
+    
 
-    {
-        yield return new WaitForSeconds(BeginTime);
-        animator.SetBool(isBeginningHash, true);
-        animator.SetBool(isIdleHash, false);
-
-    }
 }
 
 
