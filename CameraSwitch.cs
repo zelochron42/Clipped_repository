@@ -10,7 +10,7 @@ public class CameraSwitch : MonoBehaviour
     public GameObject Camera3;
     void Start()
     {
-        
+        CameraOne();
     }
 
     // Update is called once per frame
@@ -20,11 +20,15 @@ public class CameraSwitch : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Camera2"))
+        if (other.gameObject.CompareTag("Camera1"))
+        {
+            CameraOne();
+        }
+        else if (other.gameObject.CompareTag("Camera2"))
         {
             Cameratwo();
         }
-        if (other.gameObject.CompareTag("Camera3"))
+        else if (other.gameObject.CompareTag("Camera3"))
         {
             Camerathree();
         }
