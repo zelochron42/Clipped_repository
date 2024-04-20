@@ -5,17 +5,22 @@ using UnityEngine;
 public class RBplayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
+    [Header("References")]
+    public Transform cam;
     [Header("Movement")]
     private float moveSpeed;
     public float walkSpeed;
     public float sprintSpeed;
     public float GravityModifier;
+    public float Rotationspeed;
 
     public float groundDrag;
     public float jumpForce;
     public float JumpCool;
     public float airMultiplier;
     [SerializeField] bool ReadyToJump;
+    public float turnSmoothTime = 0.1f;
+    public float turnSmoothVelocity;
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
@@ -109,12 +114,27 @@ public class RBplayerMovement : MonoBehaviour
     }
     void MovePLayer()
     {
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
+        Vector3 direction = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+
+        if(direction.magnitude >= 0.1f)
+        {
+            float targetAngle = Mathf.Atan2(direction.x, direction.z)* Mathf.Rad2Deg + cam.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            
+        
+
         if (grounded)
             PlayerRB.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
 
+
         else if (!grounded)
             PlayerRB.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+        
+        }
     }
     private void SpeedControl()
     {
