@@ -65580,6 +65580,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7098390190423166380}
   - component: {fileID: 2659692991772366138}
+  - component: {fileID: 5371660972105065867}
   m_Layer: 0
   m_Name: Level architecture2
   m_TagString: Untagged
@@ -65628,6 +65629,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 50.45767, y: 32.294937, z: 5.1150055}
   m_Center: {x: 13.802473, y: 15.647469, z: -117.54105}
+--- !u!114 &5371660972105065867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7098390190423166381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0d23cf23d7eab048bb7087c4f136c22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 4
 --- !u!1 &7098390190425408754
 GameObject:
   m_ObjectHideFlags: 0
