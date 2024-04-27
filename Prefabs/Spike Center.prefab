@@ -176,9 +176,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3489342201600464655}
   - component: {fileID: 1264396092639676256}
+  - component: {fileID: 8694783338422649218}
   m_Layer: 0
   m_Name: Spike Center
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,6 +216,19 @@ MonoBehaviour:
   _speed: 0
   _Translate: {x: 0, y: 0, z: 0}
   _TranslateSpeed: 0
+--- !u!65 &8694783338422649218
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3489342201600464654}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4716797, y: 2.5063083, z: 2.4454277}
+  m_Center: {x: -0.08300781, y: -0.0060214996, z: -0.054861244}
 --- !u!1 &4372375041298714897
 GameObject:
   m_ObjectHideFlags: 0
