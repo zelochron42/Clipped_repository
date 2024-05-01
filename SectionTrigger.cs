@@ -28,7 +28,7 @@ public class SectionTrigger : MonoBehaviour
             if (canSpawn) {
                 canSpawn = false;
                 //for (int i = 0; i < SectionLimit; i++)
-                SpawnedSection = Instantiate(RandomSection[0], new Vector3(0, -60, 139), Quaternion.identity) as GameObject;
+                SpawnedSection = Instantiate(RandomSection[RandomNo], new Vector3(0, -60, 139), Quaternion.identity) as GameObject;
                 //Destroy(SectionTriggerObj);
                 other.enabled = false;
                 //SectionTriggerObj = SpawnedSection.transform.Find("New-Section-Trigger").gameObject;

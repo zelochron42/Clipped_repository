@@ -28,7 +28,11 @@ public class FalcionPlayerScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Damage"))
         {
-            PLayerHealth -= 1;
+            PLayerHealth -= 5;
         }
+
+     
     }
+    
+
 }

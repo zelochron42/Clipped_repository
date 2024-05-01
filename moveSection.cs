@@ -23,6 +23,7 @@ public class moveSection : MonoBehaviour
 
         
         transform.position += new Vector3(0, 0, -2) * speed * Time.deltaTime;
+        speed += (0.01f * 0.3f);
     }
     private void OnTriggerEnter(Collider other)
     {

@@ -86,7 +86,7 @@ public class RBplayerMovement : MonoBehaviour
     void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+        //verticalInput = Input.GetAxisRaw("Vertical");
         if(Input.GetKey(jumpKey) && ReadyToJump && grounded)
         {
             ReadyToJump = false;
@@ -116,13 +116,13 @@ public class RBplayerMovement : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+        Vector3 direction = new Vector3(horizontalInput, 0f, 0f).normalized;
 
         if(direction.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z)* Mathf.Rad2Deg + cam.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            //transform.rotation = Quaternion.Euler(0f, angle, 0f);
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             if (grounded)
             PlayerRB.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
