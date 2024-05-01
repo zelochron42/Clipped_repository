@@ -6,6 +6,7 @@ public class moveSection : MonoBehaviour
 {
     public float speed = 30;
     public bool RiseOnStart = true;
+   
 
     // Start is called before the first frame update
     void Start()

@@ -24,13 +24,13 @@ public class SectionTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("NewSectionTrigger"))
         {
-            for (int i = 0; i < SectionLimit; i++)
-            {
-                SpawnedSection =  Instantiate(RandomSection[RandomNo], new Vector3(0, -60, 139), Quaternion.identity) as GameObject;
+            //for (int i = 0; i < SectionLimit; i++)
+            
+                SpawnedSection =  Instantiate(RandomSection[0], new Vector3(0, -60, 139), Quaternion.identity) as GameObject;
                 //Destroy(SectionTriggerObj);
                 Destroy(other.gameObject);
                 //SectionTriggerObj = SpawnedSection.transform.Find("New-Section-Trigger").gameObject;
-            }
+            
         }
     }
 }
