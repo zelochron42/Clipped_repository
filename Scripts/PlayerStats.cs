@@ -8,7 +8,7 @@ using UnityEngine.Events;
 public class PlayerStats : MonoBehaviour
 {
     public int DamageAmount;
-    public float PlayerHealth = 100;
+    public float PlayerHealth = 30;
     public Slider HealthSlider;
 
     bool invuln = false;
@@ -28,10 +28,12 @@ public class PlayerStats : MonoBehaviour
     bool loadingNewScene = false;
 
     PlayerMovement movement;
+    PositionReset posReset;
     // Start is called before the first frame update
     void Start()
     {
         movement = GetComponent<PlayerMovement>();
+        posReset = GetComponent<PositionReset>();
         HealthSlider.maxValue = PlayerHealth;
         HealthSlider.value = PlayerHealth;
         if (respawnInCurrentScene)
@@ -95,14 +97,16 @@ public class PlayerStats : MonoBehaviour
             PlayerHealth -= DamageAmount;
             if (PlayerHealth <= 0) {
                 Debug.Log("Player is big dead");
-                movement.enabled = false;
-                if (!loadingNewScene) {
-                    ChangeScene(currentSceneName);
-                }
+                DeathReset();
             }
             invuln = true;
             StartCoroutine("InvulnRoutine");
         }
+    }
+
+    public void Heal(float val) {
+        PlayerHealth += val;
+        PlayerHealth = Mathf.Min(PlayerHealth, HealthSlider.maxValue);
     }
 
     IEnumerator InvulnRoutine() {
@@ -114,6 +118,18 @@ public class PlayerStats : MonoBehaviour
 
     public void ChangeScene(string nextScene) {
         StartCoroutine("SceneChange", nextScene);
+    }
+
+    void DeathReset() {
+        if (posReset.checkpoint_id != "") {
+            posReset.ResetPos();
+            Heal(HealthSlider.maxValue);
+            return;
+        }
+        movement.enabled = false;
+        if (!loadingNewScene) {
+            ChangeScene(currentSceneName);
+        }
     }
     IEnumerator SceneChange(string nextScene) {
         yield return new WaitForSeconds(0.5f);

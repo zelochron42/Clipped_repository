@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ForninBossBehavior : MonoBehaviour
 {
     // Start is called before the first frame update
 
     [SerializeField] Vector2[] movePoints;
+    [SerializeField] Vector2 moveRegionBound1;
+    [SerializeField] Vector2 moveRegionBound2;
+    [SerializeField] float teleportMargin = 0.1f;
     [SerializeField] Rigidbody2D fireballPrefab;
     [SerializeField] int fireballCount = 3;
     [SerializeField] float fireballWindup = 0.5f;
@@ -29,6 +33,9 @@ public class ForninBossBehavior : MonoBehaviour
     Transform player;
     bool neutral = true;
 
+    public UnityEvent onTeleportStart;
+    public UnityEvent onTeleportEnd;
+
     Vector2 goalPos;
     void Start()
     {
@@ -45,6 +52,7 @@ public class ForninBossBehavior : MonoBehaviour
 
     void NeutralUpdate() {
         float dist = Vector2.Distance(transform.position, goalPos);
+        BoundsCheck();
         if (dist <= goalResetThreshold) {
             RandomGoal();
             rb2d.velocity = Vector2.zero;
@@ -55,6 +63,34 @@ public class ForninBossBehavior : MonoBehaviour
             //VelocityAim();
             AngleAim();
         }
+    }
+
+    void BoundsCheck() {
+        bool outOfBounds = false;
+        Vector2 newPos = transform.position;
+        if (transform.position.x < moveRegionBound1.x) {
+            outOfBounds = true;
+            newPos.x = moveRegionBound2.x - teleportMargin;
+        }
+        else if (transform.position.x > moveRegionBound2.x) {
+            outOfBounds = true;
+            newPos.x = moveRegionBound1.x + teleportMargin;
+        }
+        if (transform.position.y < moveRegionBound1.y) {
+            outOfBounds = true;
+            newPos.y = moveRegionBound2.y - teleportMargin;
+        }
+        else if (transform.position.y > moveRegionBound2.y) {
+            outOfBounds = true;
+            newPos.y = moveRegionBound1.y + teleportMargin;
+        }
+        if (outOfBounds)
+            Teleport(newPos);
+    }
+    void Teleport(Vector2 goal) {
+        onTeleportStart.Invoke();
+        transform.position = goal;
+        onTeleportEnd.Invoke();
     }
 
     void AngleAim() {
@@ -136,11 +172,16 @@ public class ForninBossBehavior : MonoBehaviour
         return clampedMax;
     }
     private void OnDrawGizmos() {
+        Gizmos.DrawWireCube((moveRegionBound1 + moveRegionBound2) / 2f, moveRegionBound2 - moveRegionBound1);
         foreach (Vector2 point in movePoints) {
             Gizmos.DrawSphere(point, 0.2f);
         }
     }
 
+    public void InterruptShoot() {
+        StopAllCoroutines();
+        neutral = true;
+    }
     IEnumerator ShootRoutine() {
         yield return new WaitForSeconds(fireballWindup);
         for (int i = 0; i < fireballCount; i++) {
@@ -171,7 +212,7 @@ public class ForninBossBehavior : MonoBehaviour
         Vector2 startPos = transform.position;
         for (int i = 0; i < repositionSteps; i++) {
             transform.position = Vector2.Lerp(startPos, repositionGoal, (float)i / repositionSteps);
-            yield return null;
+            yield return new WaitForSeconds(0.02f);
         }
         yield break;
     }

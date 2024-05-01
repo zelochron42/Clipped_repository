@@ -76,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] int remainingJumps = 0;
 
     bool isJumping = false;
+    public bool isDashing = false;
 
     float gravityScale;
     [SerializeField] float gravityPercentage = 100f;
@@ -156,6 +157,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     private void FreeFixedUpdate() {
+        isDashing = false;
         if (OnGround()) {
             isSliding = false;
             movementControl = 1.1f;
@@ -315,6 +317,7 @@ public class PlayerMovement : MonoBehaviour
         isJumping = false;
         isSliding = false;
         gravityPercentage = 100f;
+        isDashing = true;
         StartDash.Invoke();
         hoverParticles.Stop();
         StartCoroutine("DashRecovery");
@@ -404,6 +407,7 @@ public class PlayerMovement : MonoBehaviour
         playerState = state.free;
         rb2d.gravityScale = gravityScale;
         movementControl = 0f;
+        isDashing = false;
         yield break;
     }
 

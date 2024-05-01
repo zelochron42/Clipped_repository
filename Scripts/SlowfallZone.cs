@@ -21,7 +21,8 @@ public class SlowfallZone : MonoBehaviour
     {
         Collider2D[] colliders = CheckOverlaps();
         foreach (Collider2D c in colliders) {
-            if (c.gameObject.CompareTag("Player")) {
+            PlayerMovement player = c.gameObject.GetComponent<PlayerMovement>();
+            if (player && !player.isDashing) {
                 Rigidbody2D rb2d = c.GetComponent<Rigidbody2D>();
                 if (!rb2d)
                     return;

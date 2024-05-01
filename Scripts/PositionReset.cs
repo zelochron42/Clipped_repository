@@ -5,11 +5,11 @@ using UnityEngine;
 /// <summary>
 /// Script for resetting player position and setting checkpoints
 /// Written by Joshua Cashmore
-/// last updated 3/10/2024
 /// </summary>
 
 public class PositionReset : MonoBehaviour
 {
+    public string checkpoint_id = "";
     [SerializeField] float resetThreshold = -500f;
     PlayerStats stats;
     Vector2 startPos;
@@ -29,8 +29,9 @@ public class PositionReset : MonoBehaviour
             ResetPos();
         }
     }
-    public void UpdateCheckpoint(Transform newCheckpoint) {
-        startPos = newCheckpoint.position;
+    public void UpdateCheckpoint(Checkpoint newCheckpoint) {
+        startPos = newCheckpoint.transform.position;
+        checkpoint_id = newCheckpoint.id;
     }
     public void UpdateThreshold(float newThreshold) {
         resetThreshold = newThreshold;
@@ -39,7 +40,6 @@ public class PositionReset : MonoBehaviour
         transform.position = startPos;
         rb2d.velocity = Vector2.zero;
     }
-
     private void OnDrawGizmos() {
         Gizmos.DrawWireCube(transform.position, (GetComponent<Collider2D>().bounds.size));
     }

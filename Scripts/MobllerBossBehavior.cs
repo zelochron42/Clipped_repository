@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// Enemy AI script controlling the Mobller boss enemy (final boss)
-/// Written by Joshua Cashmore, last updated 11/14/2023
+/// Written by Joshua Cashmore
 /// </summary>
 public class MobllerBossBehavior : MonoBehaviour
 {
@@ -16,6 +16,8 @@ public class MobllerBossBehavior : MonoBehaviour
     [SerializeField] float maxHorizontalSpeed = 1f;
     [SerializeField] float horizontalAcceleration = 0.1f;
     [SerializeField] float attackDelay = 2f;
+    [SerializeField] float rageDelay = 0.25f;
+    [SerializeField] float rageThreshold = 35f;
 
     [SerializeField] float projectileForce;
     [SerializeField] float projectileSpread;
@@ -30,6 +32,8 @@ public class MobllerBossBehavior : MonoBehaviour
     [SerializeField] Transform projectileLaunch;
     [SerializeField] float fistSlamRange = 1f;
     [SerializeField] float antiAirThreshold;
+
+    [SerializeField] float healthPercentage = 100f;
 
     [SerializeField] float xLowerLimit;
     [SerializeField] float xUpperLimit;
@@ -68,7 +72,7 @@ public class MobllerBossBehavior : MonoBehaviour
     }
     void FreeUpdate() {
         timeIdle += Time.fixedDeltaTime;
-        if (timeIdle > attackDelay) {
+        if (timeIdle > attackDelay || (healthPercentage < rageThreshold && timeIdle < rageDelay)) {
             currentState = attack.pursuit;
         }
         /*
@@ -168,6 +172,10 @@ public class MobllerBossBehavior : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         headModel.material = headBaseMaterial;
         yield break;
+    }
+
+    public void UpdateHealth(float hp) {
+        healthPercentage = hp * 100f;
     }
 
     //separate methods for enabling and disabling each collider because unity animation events are too limited

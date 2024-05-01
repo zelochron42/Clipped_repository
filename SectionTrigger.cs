@@ -12,6 +12,8 @@ public class SectionTrigger : MonoBehaviour
     private GameObject SpawnedSection;
     public GameObject[] RandomSection;
     [SerializeField] private int SectionLimit = 1;
+
+    bool canSpawn = true;
     void Start()
     {
         NoOfSections = RandomSection.Length;
@@ -22,15 +24,25 @@ public class SectionTrigger : MonoBehaviour
     }
    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("NewSectionTrigger"))
-        {
-            //for (int i = 0; i < SectionLimit; i++)
-            
-                SpawnedSection =  Instantiate(RandomSection[0], new Vector3(0, -60, 139), Quaternion.identity) as GameObject;
+        if (other.gameObject.CompareTag("NewSectionTrigger")) {
+            if (canSpawn) {
+                canSpawn = false;
+                //for (int i = 0; i < SectionLimit; i++)
+                SpawnedSection = Instantiate(RandomSection[0], new Vector3(0, -60, 139), Quaternion.identity) as GameObject;
                 //Destroy(SectionTriggerObj);
-                Destroy(other.gameObject);
+                other.enabled = false;
                 //SectionTriggerObj = SpawnedSection.transform.Find("New-Section-Trigger").gameObject;
-            
+                StartCoroutine("SpawnCooldown");
+            }
+            else {
+                print("Multiple trigger activation glitch detected, " + other.gameObject.name);
+            }
         }
+    }
+
+    IEnumerator SpawnCooldown() {
+        yield return new WaitForSeconds(0.2f);
+        canSpawn = true;
+        yield break;
     }
 }
