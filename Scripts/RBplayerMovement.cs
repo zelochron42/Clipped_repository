@@ -147,8 +147,8 @@ public class RBplayerMovement : MonoBehaviour
     }
     private void Jump()
     {
-       // rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        PlayerRB.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        PlayerRB.velocity = new Vector3(PlayerRB.velocity.x, transform.up.y * jumpForce, PlayerRB.velocity.z);
+        //PlayerRB.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
     private void ResetJump()
     {
