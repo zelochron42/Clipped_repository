@@ -6,14 +6,19 @@ using UnityEngine.UI;
 public class FalcionPlayerScript : MonoBehaviour
 {
     public int PLayerHealth = 30;
+    public float StaminaAmount = 100;
+    public float StaminaLoss;
     [SerializeField] private Slider healthBar;
+    [SerializeField] private Slider StaminaBar;
+    [SerializeField] private Image StaminaFill;
 
 
     //variables for invincibility blink effect
     List<Renderer> renders = new List<Renderer>();
     [SerializeField] [Tooltip("Duration of each blink while invulnerable")] float blinkTime = 0.2f;
     [SerializeField] [Tooltip("Duration of invulnerability after taking damage")] float invulnTime = 1f;
-    bool invulnerable = false;
+    [SerializeField] bool invulnerable = false;
+    [SerializeField] bool DashInvul = false;
 
     // Start is called before the first frame update
     void Start()
@@ -32,29 +37,53 @@ public class FalcionPlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SliderColorChange();
         if(PLayerHealth <= 0)
         {
             Time.timeScale = 0;
            
         } 
         healthBar.value = PLayerHealth;
+        StaminaBar.value = StaminaAmount;
+        StaminaAmount -= StaminaLoss;
         BlinkEffect();
+        if (Input.GetKey(KeyCode.Q) && StaminaAmount >=750)
+        {
+            DashInvul = true;
+            blinkTime = 0.05f;
+            StaminaLoss += 0.1f;
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            Debug.Log("E Pressed!");
+            DashInvul = false;
+            blinkTime = 0.1f;
+            StaminaLoss = 0.1f;
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Damage") && !invulnerable)
+        if (other.gameObject.CompareTag("Damage") && !invulnerable && !DashInvul)
         {
             invulnerable = true;
             StartCoroutine("InvulnBlink");
             PLayerHealth -= 1;
         }
+        if (other.gameObject.CompareTag("Stamina"))
+        {
+            if (StaminaAmount <= 100)
+            {
+                StaminaAmount += 25;
 
-     
+            }
+        }
+
+
     }
 
     
     void BlinkEffect() {
-        if (invulnerable)
+        if (invulnerable || DashInvul)
             SetRenderers((int)Mathf.Floor(Time.time / blinkTime) % 2 == 0);
         else
             SetRenderers(true);
@@ -69,6 +98,21 @@ public class FalcionPlayerScript : MonoBehaviour
         yield return new WaitForSeconds(invulnTime);
         invulnerable = false;
         yield break;
+    }
+    void SliderColorChange()
+    {
+        if (StaminaAmount >= 750)
+        {
+            StaminaFill.color = Color.green;
+        }
+        else if (StaminaAmount >= 250 && StaminaAmount <= 749)
+        {
+            StaminaFill.color = Color.yellow;
+        }
+        else if (StaminaAmount <= 249)
+        {
+            StaminaFill.color = Color.red;
+        }
     }
     
 

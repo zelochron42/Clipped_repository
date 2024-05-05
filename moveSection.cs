@@ -25,7 +25,7 @@ public class moveSection : MonoBehaviour
     void Start()
     {
        SpeedObject = FindObjectOfType<SectionSpeed>();
-        Destroy(gameObject, 5);
+        Destroy(gameObject, 35);
         if(RiseOnStart)
         StartCoroutine(Rise());
         NoOfSections = RandomSection.Length;
@@ -50,6 +50,7 @@ public class moveSection : MonoBehaviour
         {
             
             SpawnedSection = Instantiate(RandomSection[RandomNo], new Vector3(0, -60, 139), Quaternion.identity) as GameObject;
+            SpawnedSection.GetComponent<moveSection>().RiseOnStart = true;
             SectionSpawned = true;
 
        
