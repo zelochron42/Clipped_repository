@@ -38730,6 +38730,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   RiseOnStart: 1
+  Falcion: {fileID: 0}
+  SpeedParticle: {fileID: 8101472004982834300, guid: fbe9f617484ce93419ef8f86e02c65e2, type: 3}
+  RandomSection:
+  - {fileID: 7098390190423166381}
+  - {fileID: 7098390190423166381, guid: c53b1498eb702cb4e833844051f000a8, type: 3}
+  - {fileID: 7098390190423166381, guid: 600de055796ca4943a1e81776f48116e, type: 3}
+  NoOfSections: 0
 --- !u!1 &7098390190582996173
 GameObject:
   m_ObjectHideFlags: 0

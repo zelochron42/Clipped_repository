@@ -22,7 +22,7 @@ public class SectionTrigger : MonoBehaviour
     {
         RandomNo = Random.Range(0, NoOfSections);
     }
-   private void OnTriggerEnter(Collider other)
+  /*private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("NewSectionTrigger")) {
             if (canSpawn) {
@@ -38,7 +38,7 @@ public class SectionTrigger : MonoBehaviour
                 print("Multiple trigger activation glitch detected, " + other.gameObject.name);
             }
         }
-    }
+    }*/
 
     IEnumerator SpawnCooldown() {
         yield return new WaitForSeconds(0.2f);
