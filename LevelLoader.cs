@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
+    public int SceneNumber;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +17,7 @@ public class LevelLoader : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T)){
-            SceneManager.LoadScene(4);
+            SceneManager.LoadScene(SceneNumber);
         }
     }
     private void OnTriggerEnter(Collider collision)
@@ -24,7 +26,7 @@ public class LevelLoader : MonoBehaviour
         {
 
             Debug.Log("Slow");
-            SceneManager.LoadScene(4);
+            SceneManager.LoadScene(SceneNumber);
         }
     }
 }

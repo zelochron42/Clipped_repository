@@ -2911,7 +2911,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Rig 1/RightHand/RightHand_target
+    path: Rig 1/LeftLeg/LeftLeg_target
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2921,7 +2921,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Rig 1/RightHand/RightHand_target
+    path: Rig 1/LeftLeg/LeftLeg_target
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2931,7 +2931,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Rig 1/RightHand/RightHand_target
+    path: Rig 1/LeftLeg/LeftLeg_target
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2941,7 +2941,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Rig 1/RightLeg/RightLeg_target
+    path: Rig 1/RightHand/RightHand_target
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2951,7 +2951,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Rig 1/RightLeg/RightLeg_target
+    path: Rig 1/RightHand/RightHand_target
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2961,37 +2961,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Rig 1/RightLeg/RightLeg_target
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Armature/Bone/Bone.001/head
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Armature/Bone/Bone.001/head
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Armature/Bone/Bone.001/head
+    path: Rig 1/RightHand/RightHand_target
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3060,8 +3030,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Rig 1/LeftLeg/LeftLeg_target
+    attribute: m_LocalEulerAngles.z
+    path: Armature/Bone/Bone.001/head
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3071,7 +3041,37 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Rig 1/LeftLeg/LeftLeg_target
+    path: Armature/Bone/Bone.001/head
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Armature/Bone/Bone.001/head
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Rig 1/RightLeg/RightLeg_target
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Rig 1/RightLeg/RightLeg_target
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3081,7 +3081,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Rig 1/LeftLeg/LeftLeg_target
+    path: Rig 1/RightLeg/RightLeg_target
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0

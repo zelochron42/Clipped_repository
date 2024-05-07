@@ -18,9 +18,9 @@ public class ApproachingLight : MonoBehaviour
         transform.position += new Vector3(0, 0, -2) * speed * Time.deltaTime;
         if (SpeedObject.speed >= 51)
         {
-            speed = 2f;
+            speed = 15f;
         }
         else
-            speed = 4f;
+            speed = 10f;
     }
 }

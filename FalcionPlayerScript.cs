@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FalcionPlayerScript : MonoBehaviour
 {
-    public int PLayerHealth = 30;
+    public float PLayerHealth = 30;
     public float StaminaAmount = 100;
     public float StaminaLoss;
     [SerializeField] private Slider healthBar;
     [SerializeField] private Slider StaminaBar;
     [SerializeField] private Image StaminaFill;
     private SectionSpeed SpeedObject;
+   
 
 
 
@@ -35,11 +37,16 @@ public class FalcionPlayerScript : MonoBehaviour
                 renders.Add(r); //add active renderers to the list of renderers that will be toggled while invulnerable
             }
         }
+        
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+
+        StaminaCheck();
         SliderColorChange();
         if(PLayerHealth <= 0)
         {
@@ -86,6 +93,12 @@ public class FalcionPlayerScript : MonoBehaviour
             }
             
         }
+        if (other.gameObject.CompareTag("NextSceneTrigger"))
+        {
+
+            SceneManager.LoadScene(7);
+
+        }
 
 
     }
@@ -121,6 +134,14 @@ public class FalcionPlayerScript : MonoBehaviour
         else if (StaminaAmount <= 249)
         {
             StaminaFill.color = Color.red;
+        }
+    }
+    void StaminaCheck()
+    {
+        if(StaminaAmount <= 0)
+        {
+            PLayerHealth -= 0.1f;
+            
         }
     }
     

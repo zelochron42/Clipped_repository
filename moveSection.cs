@@ -21,6 +21,7 @@ public class moveSection : MonoBehaviour
     [SerializeField] private Transform ParentObject;
     private int RandomFeatherNo;
     private Vector3 FeatherSpawnPoint;
+    public bool SpeedIncrease;
 
 
 
@@ -44,6 +45,7 @@ public class moveSection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SpeedCheck();
         
         FeatherSpawnPoint = Spawnpoints[RandomFeatherNo].transform.position;
         RandomNo = Random.Range(0, NoOfSections);
@@ -59,14 +61,14 @@ public class moveSection : MonoBehaviour
  
         if(transform.position.z <= SpawnPoint && !SectionSpawned)
         {
-            if(SpeedObject.speed <= 50)
+            if(SpeedObject.speed <= 50 && !SpeedIncrease)
             {
                 SpawnedSection = Instantiate(RandomSection[RandomNo], new Vector3(0, -60, 139), Quaternion.identity) as GameObject;
             SpawnedSection.GetComponent<moveSection>().RiseOnStart = true;
                 GameObject SpawnedFeather = Instantiate(SpawnedFeathers, FeatherSpawnPoint, Quaternion.identity);
             SpawnedFeather.transform.parent = SpawnedSection.transform;
             }
-            else if(SpeedObject.speed >= 51)
+            else if(SpeedObject.speed >= 60)
             {
                 SpawnedSection = Instantiate(RandomSection[2], new Vector3(0, -60, 139), Quaternion.identity) as GameObject;
                 SpawnedSection.GetComponent<moveSection>().RiseOnStart = true;
@@ -105,6 +107,15 @@ public class moveSection : MonoBehaviour
         }
         yield break;
     }
-
+    void SpeedCheck()
+    {
+        if (SpeedObject.speed >= 60)
+        {
+            SpeedIncrease = true;
+        }
+        else
+            SpeedIncrease = false;
+    }
+  
  
 }
