@@ -11,6 +11,8 @@ public class FalcionPlayerScript : MonoBehaviour
     [SerializeField] private Slider healthBar;
     [SerializeField] private Slider StaminaBar;
     [SerializeField] private Image StaminaFill;
+    private SectionSpeed SpeedObject;
+
 
 
     //variables for invincibility blink effect
@@ -24,6 +26,7 @@ public class FalcionPlayerScript : MonoBehaviour
     void Start()
     {
         healthBar.value = PLayerHealth;
+        SpeedObject = FindObjectOfType<SectionSpeed>();
 
         //invulnerability code
         Renderer[] allRenders = GetComponentsInChildren<Renderer>();
@@ -51,14 +54,14 @@ public class FalcionPlayerScript : MonoBehaviour
         {
             DashInvul = true;
             blinkTime = 0.05f;
-            StaminaLoss += 0.1f;
+            StaminaLoss = 1f;
         }
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.E) || SpeedObject.speed <= 30)
         {
             Debug.Log("E Pressed!");
             DashInvul = false;
             blinkTime = 0.1f;
-            StaminaLoss = 0.1f;
+            StaminaLoss = 0.5f;
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -71,11 +74,17 @@ public class FalcionPlayerScript : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Stamina"))
         {
-            if (StaminaAmount <= 100)
+          
+             StaminaAmount += 100;
+            if (StaminaAmount >= 1000)
             {
-                StaminaAmount += 25;
-
+                StaminaAmount = 1000;
             }
+            if(SpeedObject.speed >= 51)
+            {
+                SpeedObject.speed += 0.05f;
+            }
+            
         }
 
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SectionSpeed : MonoBehaviour
 {
-    public float speed = 30;
+    public float speed = 50;
     private FalcionPlayerScript StaminaCount;
     void Start()
     {

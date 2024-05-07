@@ -6,8 +6,8 @@ public class moveSection : MonoBehaviour
 {
     public float speed = 30;
     public bool RiseOnStart = true;
-    [SerializeField] GameObject Falcion;
-    [SerializeField] ParticleSystem SpeedParticle;
+
+    
     private float DestroyPoint = -313;
     private float SpawnPoint = -47;
     private bool SectionSpawned = false;
@@ -16,8 +16,14 @@ public class moveSection : MonoBehaviour
     private int RandomNo;
     [SerializeField] private int NoOfSections;
     private SectionSpeed SpeedObject;
- 
-    
+    public GameObject[] Spawnpoints;
+    [SerializeField] private GameObject SpawnedFeathers;
+    [SerializeField] private Transform ParentObject;
+    private int RandomFeatherNo;
+    private Vector3 FeatherSpawnPoint;
+
+
+
 
 
 
@@ -29,12 +35,17 @@ public class moveSection : MonoBehaviour
         if(RiseOnStart)
         StartCoroutine(Rise());
         NoOfSections = RandomSection.Length;
-        
+        RandomFeatherNo = Random.Range(0, 5);
+       
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+        FeatherSpawnPoint = Spawnpoints[RandomFeatherNo].transform.position;
         RandomNo = Random.Range(0, NoOfSections);
         speed = SpeedObject.speed;
         transform.position += new Vector3(0, 0, -2) * speed * Time.deltaTime;
@@ -48,10 +59,21 @@ public class moveSection : MonoBehaviour
  
         if(transform.position.z <= SpawnPoint && !SectionSpawned)
         {
-            
-            SpawnedSection = Instantiate(RandomSection[RandomNo], new Vector3(0, -60, 139), Quaternion.identity) as GameObject;
+            if(SpeedObject.speed <= 50)
+            {
+                SpawnedSection = Instantiate(RandomSection[RandomNo], new Vector3(0, -60, 139), Quaternion.identity) as GameObject;
             SpawnedSection.GetComponent<moveSection>().RiseOnStart = true;
+                GameObject SpawnedFeather = Instantiate(SpawnedFeathers, FeatherSpawnPoint, Quaternion.identity);
+            SpawnedFeather.transform.parent = SpawnedSection.transform;
+            }
+            else if(SpeedObject.speed >= 51)
+            {
+                SpawnedSection = Instantiate(RandomSection[2], new Vector3(0, -60, 139), Quaternion.identity) as GameObject;
+                SpawnedSection.GetComponent<moveSection>().RiseOnStart = true;
+            }
+            
             SectionSpawned = true;
+            
 
        
         }
@@ -76,8 +98,8 @@ public class moveSection : MonoBehaviour
         {
           
             transform.Translate(0f, 3f, 0f);
-            if (SpeedObject.speed > 30) 
-                yield return new WaitForSeconds(0.01f);
+            if (SpeedObject.speed > 50) 
+                yield return new WaitForSeconds(0.001f);
             else
                 yield return new WaitForSeconds(0.05f);
         }
