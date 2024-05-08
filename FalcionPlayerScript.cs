@@ -50,7 +50,7 @@ public class FalcionPlayerScript : MonoBehaviour
     {
         
 
-        StaminaCheck();
+        //StaminaCheck();
         SliderColorChange();
         if(PLayerHealth <= 0)
         {

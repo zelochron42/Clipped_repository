@@ -17,7 +17,7 @@ public class SectionSpeed : MonoBehaviour
     {
        // StartCoroutine(LimitedSpeedBoost());
 
-        if (Input.GetKey(KeyCode.Q) && StaminaCount.StaminaAmount >= 250)
+        if (Input.GetButton("Fire2") && StaminaCount.StaminaAmount >= 250)
         {
             speed = 100;
             /* if (!SpeedParticle.isPlaying)
@@ -26,22 +26,24 @@ public class SectionSpeed : MonoBehaviour
              }*/
             SectionSpeedIncrease = true;
         }
-        else if (Input.GetKey(KeyCode.E))
+       /* else if (Input.GetKey(KeyCode.X) && SectionSpeedIncrease)
         {
             speed = 50;
             /* if (!SpeedParticle.isPlaying)
              {
                  SpeedParticle.Play();
-             }*/
-            SectionSpeedIncrease = false;
-        }
+             }
+           
+        }*/
         else if (StaminaCount.StaminaAmount <= 249)
         {
             speed = 30;
+            SectionSpeedIncrease = true;
         }
         else 
         { 
             speed = 50;
+            SectionSpeedIncrease = false;
         }
        
 
