@@ -21,8 +21,8 @@ public class FalcionPlayerDashing : MonoBehaviour
     private float dashCdTimer;
 
     [Header("Input")]
-    public KeyCode dashKey = KeyCode.E;
-
+    public KeyCode LeftdashKey;
+    public KeyCode RightdashKey;
 
     void Start()
     {
@@ -33,24 +33,49 @@ public class FalcionPlayerDashing : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetKey(dashKey))
+        if (Input.GetKey(LeftdashKey))
         {
-            Dash();
+            LeftDash();
         }
-        if (dashCdTimer > 0)
+      
+
+        else if (Input.GetKey(RightdashKey))
+        {
+           RightDash();
+        }
+      if (dashCdTimer > 0)
             dashCdTimer -= Time.deltaTime;
     }
 
-    private void Dash()
+
+
+    private void LeftDash()
     {
         if (dashCdTimer > 0) return;
         else dashCdTimer = dashCD;
-        Vector3 forceToApply = orientation.forward * dashForce;  //+orientation.up * dashUpwardForce;
+        Vector3 LeftforceToApply = -orientation.right * dashForce;  //+orientation.up * dashUpwardForce;
+      
 
-        rb.AddForce(forceToApply, ForceMode.Impulse);
+        rb.AddForce(LeftforceToApply, ForceMode.Impulse);
+       
+
         Invoke(nameof(DelayedDashForce), 0.025f);
         Invoke(nameof(ResetDash), dashDuration);
         dashing = true; 
+    }
+    private void RightDash()
+    {
+        if (dashCdTimer > 0) return;
+        else dashCdTimer = dashCD;
+  
+        Vector3 RightforceToApply = orientation.right * dashForce;
+
+    
+        rb.AddForce(RightforceToApply, ForceMode.Impulse);
+
+        Invoke(nameof(DelayedDashForce), 0.025f);
+        Invoke(nameof(ResetDash), dashDuration);
+        dashing = true;
     }
 
     private Vector3 delayedForceToApply;

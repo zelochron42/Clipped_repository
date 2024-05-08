@@ -28,6 +28,7 @@ public class FalcionInstructions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (InstructionsActive)
         {
             if(FalcionPlayer.StaminaAmount <= 449)
@@ -39,6 +40,7 @@ public class FalcionInstructions : MonoBehaviour
         {
             ExplanationActive = false;
             LevelExplanation.SetActive(false);
+            Destroy(LevelExplanation);
             LevelMechanics.SetActive(true);
             MechanicsActive = true;
         }
@@ -46,6 +48,7 @@ public class FalcionInstructions : MonoBehaviour
         {
             LevelMechanics.SetActive(false);
             MechanicsActive = false;
+            Destroy(LevelMechanics);
             LevelControls.SetActive(true);
             ControlsActive = true;
         }
@@ -53,6 +56,7 @@ public class FalcionInstructions : MonoBehaviour
         {
             LevelControls.SetActive(false);
             ControlsActive = false;
+            Destroy(LevelControls);
             Time.timeScale = 1f;
             InstructionsActive = false;
         }

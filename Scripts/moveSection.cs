@@ -8,7 +8,7 @@ public class moveSection : MonoBehaviour
     public bool RiseOnStart = true;
 
     
-    private float DestroyPoint = -313;
+    private float DestroyPoint = -200;
     private float SpawnPoint = -47;
     private bool SectionSpawned = false;
     private GameObject SpawnedSection;

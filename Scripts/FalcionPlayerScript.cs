@@ -17,6 +17,7 @@ public class FalcionPlayerScript : MonoBehaviour
     [SerializeField] private Image StaminaFill;
     private SectionSpeed SpeedObject;
     private string currentSceneName;
+    public string NextScene;
 
 
 
@@ -46,9 +47,12 @@ public class FalcionPlayerScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
 
         //StaminaCheck();
         SliderColorChange();
@@ -62,13 +66,13 @@ public class FalcionPlayerScript : MonoBehaviour
         StaminaBar.value = StaminaAmount;
         StaminaAmount -= StaminaLoss;
         BlinkEffect();
-        if (Input.GetKey(KeyCode.Q) && StaminaAmount >=750)
+        if (Input.GetButton("Fire2") && StaminaAmount >=750)
         {
             DashInvul = true;
             blinkTime = 0.05f;
-            StaminaLoss = 1f;
+            StaminaLoss = 4f;
         }
-        if (Input.GetKey(KeyCode.E) || SpeedObject.speed <= 50)
+        if (Input.GetKey(KeyCode.E) || SpeedObject.speed <= 50 && SpeedObject.SectionSpeedIncrease)
         {
             Debug.Log("E Pressed!");
             DashInvul = false;
@@ -83,7 +87,7 @@ public class FalcionPlayerScript : MonoBehaviour
             invulnerable = true;
             StartCoroutine("InvulnBlink");
             PLayerHealth -= 1;
-            SpeedObject.speed = -5;
+            
         }
         if (other.gameObject.CompareTag("Stamina"))
         {
@@ -102,7 +106,7 @@ public class FalcionPlayerScript : MonoBehaviour
         if (other.gameObject.CompareTag("NextSceneTrigger"))
         {
 
-            SceneManager.LoadScene(7);
+            SceneManager.LoadScene(NextScene);
 
         }
 

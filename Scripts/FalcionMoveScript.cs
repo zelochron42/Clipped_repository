@@ -27,4 +27,13 @@ public class FalcionMoveScript : MonoBehaviour
         else
             speed = 1.5f;
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("NextSceneTrigger"))
+        {
+            Time.timeScale = 0;
+            Debug.Log("FalcionWins!!!1");
+
+        }
+    }
 }
