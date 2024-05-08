@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 public class LevelLoader : MonoBehaviour
 {
     public int SceneNumber;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
 
+    [SerializeField] GameObject wingModel;
+    // Start is called before the first frame update
+    void Start() {
+        if (wingModel != null && CollectableTracker.singleton.wingsRecovered)
+            wingModel.SetActive(true);
     }
 
     // Update is called once per frame

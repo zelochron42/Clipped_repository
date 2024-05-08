@@ -17520,6 +17520,7 @@ MonoBehaviour:
   remainingDashes: 0
   maxJumps: 1
   remainingJumps: 0
+  isDashing: 0
   gravityPercentage: 100
   gravityRecoveryPerFrame: 1.67
   hoverParticleThreshold: 60
@@ -17695,6 +17696,21 @@ MonoBehaviour:
   UIUpdate:
     m_PersistentCalls:
       m_Calls: []
+  AttackBounce:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 824971038168914898}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Bounce
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8204492072063908871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17721,6 +17737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e99d4571297454a84907eecca71499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkpoint_id: 
   resetThreshold: -500
 --- !u!114 &1323854948
 MonoBehaviour:

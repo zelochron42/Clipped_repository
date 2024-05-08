@@ -9,6 +9,8 @@ public class CollectableTracker : MonoBehaviour
 
     public UnityEvent featherCollected;
 
+    public bool wingsRecovered = false;
+
     Dictionary<string, bool> feathersCollected = new Dictionary<string, bool>();
 
     private void Awake() {

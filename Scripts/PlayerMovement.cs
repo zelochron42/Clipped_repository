@@ -93,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
     public UnityEvent EndDash;
     public UnityEvent AttackStart;
     public UnityEvent UIUpdate;
+    public UnityEvent AttackBounce;
 
     public void SetInputs(bool canInput) {
         if (canInput)
@@ -108,6 +109,10 @@ public class PlayerMovement : MonoBehaviour
             movementControl = 0f;
             StartIdle.Invoke();
         }
+    }
+    public void End() {
+        SetInputs(false);
+        enabled = false;
     }
 
 
@@ -393,6 +398,7 @@ public class PlayerMovement : MonoBehaviour
             }
             RecoverDash();
             ResetJumps();
+            AttackBounce.Invoke();
         }
         else {
             rb2d.velocity = new Vector2(bounceDirection.x * attackBouncebackForce, rb2d.velocity.y);

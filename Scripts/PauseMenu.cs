@@ -18,7 +18,8 @@ public class PauseMenu : MonoBehaviour
     {
         //pauseMenu.SetActive(false)  ;
         PlayerStats ps = FindObjectOfType<PlayerStats>();
-        ps.DamageReceived.AddListener(HitStop);
+        if (ps)
+            ps.DamageReceived.AddListener(HitStop);
     }
 
     // Update is called once per frame
