@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FalcionMoveScript : MonoBehaviour
 {
-    public float speed;
+    private float speed;
     private SectionSpeed SpeedObject;
     // Start is called before the first frame update
     void Start()
@@ -18,14 +18,14 @@ public class FalcionMoveScript : MonoBehaviour
         transform.position += new Vector3(0, 0, 2) * speed * Time.deltaTime;
         if (SpeedObject.speed >= 51 && SpeedObject.speed <= 70)
         {
-            speed = -1.5f;
+            speed = -1.0f;
         }
         else if(SpeedObject.speed >= 100)
         {
             speed = -3f;
         }
         else
-            speed = 1.5f;
+            speed = 1.0f;
     }
     private void OnTriggerEnter(Collider other)
     {
