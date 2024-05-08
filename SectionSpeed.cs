@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SectionSpeed : MonoBehaviour
 {
-    public float speed = 50;
+   public float speed;
     private FalcionPlayerScript StaminaCount;
     public bool SectionSpeedIncrease;
     //[SerializeField] [Tooltip("Limited Boost time")] private bool BoostTime = 10f;
@@ -15,9 +15,9 @@ public class SectionSpeed : MonoBehaviour
 
     void Update()
     {
-        StartCoroutine(LimitedSpeedBoost());
+       // StartCoroutine(LimitedSpeedBoost());
 
-            if (Input.GetKey(KeyCode.Q) && StaminaCount.StaminaAmount >= 250)
+        if (Input.GetKey(KeyCode.Q) && StaminaCount.StaminaAmount >= 250)
         {
             speed = 100;
             /* if (!SpeedParticle.isPlaying)
@@ -35,7 +35,7 @@ public class SectionSpeed : MonoBehaviour
              }*/
             SectionSpeedIncrease = false;
         }
-        if (StaminaCount.StaminaAmount <= 249)
+        else if (StaminaCount.StaminaAmount <= 249)
         {
             speed = 30;
         }
@@ -46,13 +46,5 @@ public class SectionSpeed : MonoBehaviour
        
 
     }
-    IEnumerator LimitedSpeedBoost()
-    {
-        if (Input.GetKey(KeyCode.Q) && StaminaCount.StaminaAmount <= 750)
-        {
-            speed = 70;
-             yield return new WaitForSeconds(10f);
-            speed = 50;
-        }
-    }
+   
 }

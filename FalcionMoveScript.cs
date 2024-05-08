@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FalcionMoveScript : MonoBehaviour
 {
-    public float speed = 30;
+    public float speed;
     private SectionSpeed SpeedObject;
     // Start is called before the first frame update
     void Start()

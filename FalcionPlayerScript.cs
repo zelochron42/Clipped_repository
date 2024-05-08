@@ -68,7 +68,7 @@ public class FalcionPlayerScript : MonoBehaviour
             blinkTime = 0.05f;
             StaminaLoss = 1f;
         }
-        if (Input.GetKey(KeyCode.E) || SpeedObject.speed <= 30)
+        if (Input.GetKey(KeyCode.E) || SpeedObject.speed <= 50)
         {
             Debug.Log("E Pressed!");
             DashInvul = false;
