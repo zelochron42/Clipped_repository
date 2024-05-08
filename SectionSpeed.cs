@@ -7,6 +7,7 @@ public class SectionSpeed : MonoBehaviour
     public float speed = 50;
     private FalcionPlayerScript StaminaCount;
     public bool SectionSpeedIncrease;
+    //[SerializeField] [Tooltip("Limited Boost time")] private bool BoostTime = 10f;
     void Start()
     {
        StaminaCount = FindObjectOfType<FalcionPlayerScript>();
@@ -14,7 +15,9 @@ public class SectionSpeed : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Q) && StaminaCount.StaminaAmount >= 750)
+        StartCoroutine(LimitedSpeedBoost());
+
+            if (Input.GetKey(KeyCode.Q) && StaminaCount.StaminaAmount >= 250)
         {
             speed = 100;
             /* if (!SpeedParticle.isPlaying)
@@ -23,24 +26,33 @@ public class SectionSpeed : MonoBehaviour
              }*/
             SectionSpeedIncrease = true;
         }
-        else if (Input.GetKey(KeyCode.E) || StaminaCount.StaminaAmount <=249)
+        else if (Input.GetKey(KeyCode.E))
         {
-            speed = 30;
+            speed = 50;
             /* if (!SpeedParticle.isPlaying)
              {
                  SpeedParticle.Play();
              }*/
             SectionSpeedIncrease = false;
         }
-        if (StaminaCount.StaminaAmount <= 250)
+        if (StaminaCount.StaminaAmount <= 249)
         {
             speed = 30;
         }
-        if (StaminaCount.StaminaAmount <= 0)
-        {
-            speed -= 0.1f;
-            Debug.Log("StaminaDecreases");
+        else 
+        { 
+            speed = 50;
         }
+       
 
+    }
+    IEnumerator LimitedSpeedBoost()
+    {
+        if (Input.GetKey(KeyCode.Q) && StaminaCount.StaminaAmount <= 750)
+        {
+            speed = 70;
+             yield return new WaitForSeconds(10f);
+            speed = 50;
+        }
     }
 }

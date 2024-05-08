@@ -6,14 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class FalcionPlayerScript : MonoBehaviour
 {
+    [Header("Player Stats")]
     public float PLayerHealth = 30;
     public float StaminaAmount = 100;
-    public float StaminaLoss;
+
+
+    [SerializeField] [Tooltip("Amount of Stamina Lost per frame")] public float StaminaLoss;
     [SerializeField] private Slider healthBar;
     [SerializeField] private Slider StaminaBar;
     [SerializeField] private Image StaminaFill;
     private SectionSpeed SpeedObject;
-   
+    private string currentSceneName;
+
 
 
 
@@ -37,8 +41,8 @@ public class FalcionPlayerScript : MonoBehaviour
                 renders.Add(r); //add active renderers to the list of renderers that will be toggled while invulnerable
             }
         }
-        
-        
+        currentSceneName = SceneManager.GetActiveScene().name;
+
     }
 
     // Update is called once per frame
@@ -50,8 +54,9 @@ public class FalcionPlayerScript : MonoBehaviour
         SliderColorChange();
         if(PLayerHealth <= 0)
         {
-            Time.timeScale = 0;
-           
+
+            SceneManager.LoadScene(currentSceneName);
+
         } 
         healthBar.value = PLayerHealth;
         StaminaBar.value = StaminaAmount;
@@ -78,6 +83,7 @@ public class FalcionPlayerScript : MonoBehaviour
             invulnerable = true;
             StartCoroutine("InvulnBlink");
             PLayerHealth -= 1;
+            SpeedObject.speed = -5;
         }
         if (other.gameObject.CompareTag("Stamina"))
         {

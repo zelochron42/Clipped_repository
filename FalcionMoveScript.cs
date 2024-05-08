@@ -16,7 +16,11 @@ public class FalcionMoveScript : MonoBehaviour
     void Update()
     {
         transform.position += new Vector3(0, 0, 2) * speed * Time.deltaTime;
-        if (SpeedObject.speed >= 51)
+        if (SpeedObject.speed >= 51 && SpeedObject.speed <= 70)
+        {
+            speed = -1.5f;
+        }
+        else if(SpeedObject.speed >= 100)
         {
             speed = -3f;
         }
