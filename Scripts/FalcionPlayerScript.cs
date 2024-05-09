@@ -92,7 +92,7 @@ public class FalcionPlayerScript : MonoBehaviour
         if (other.gameObject.CompareTag("Stamina"))
         {
           
-             StaminaAmount += 100;
+             StaminaAmount += 200;
             if (StaminaAmount >= 1000)
             {
                 StaminaAmount = 1000;
