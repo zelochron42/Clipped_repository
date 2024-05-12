@@ -31,7 +31,7 @@ public class CollectableUI : MonoBehaviour
         UpdateText();
     }
     public void UpdateText() {
-        if (tracker) {
+        if (tracker && text) {
             text.text = tracker.CollectionStatus();
         }
     }

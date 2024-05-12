@@ -5,6 +5,9 @@ using UnityEngine;
 public class FalcionInstructions : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    [SerializeField] GameObject[] UIItems;
+    [SerializeField] int currentElement = 0;
     [SerializeField] private GameObject Instructions;
     [SerializeField] private GameObject LevelExplanation;
     [SerializeField] private GameObject LevelMechanics;
@@ -18,9 +21,12 @@ public class FalcionInstructions : MonoBehaviour
     {
         Time.timeScale = 0f;
         InstructionsActive = true;
+        /*
         Instructions.SetActive(true);
         ExplanationActive = true;
         LevelExplanation.SetActive(true);
+        */
+        UIItems[currentElement].SetActive(true);
         FalcionPlayer = FindObjectOfType<FalcionPlayerScript>();
 
     }
@@ -29,18 +35,29 @@ public class FalcionInstructions : MonoBehaviour
     void Update()
     {
 
-        if (InstructionsActive)
-        {
-            if(FalcionPlayer.StaminaAmount <= 449)
-            {
-                FalcionPlayer.StaminaAmount = 450;
+        if (!InstructionsActive) {
+            return;
+        }
+        if (FalcionPlayer.StaminaAmount <= 449) {
+            FalcionPlayer.StaminaAmount = 450;
+        }
+        if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")) {
+            UIItems[currentElement].SetActive(false);
+            currentElement++;
+            if (currentElement >= UIItems.Length) {
+                Time.timeScale = 1f;
+                InstructionsActive = false;
+            }
+            else {
+                UIItems[currentElement].SetActive(true);
             }
         }
+        /*
         if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump") && ExplanationActive)
         {
             ExplanationActive = false;
             LevelExplanation.SetActive(false);
-            Destroy(LevelExplanation);
+            //Destroy(LevelExplanation);
             LevelMechanics.SetActive(true);
             MechanicsActive = true;
         }
@@ -48,7 +65,7 @@ public class FalcionInstructions : MonoBehaviour
         {
             LevelMechanics.SetActive(false);
             MechanicsActive = false;
-            Destroy(LevelMechanics);
+            //Destroy(LevelMechanics);
             LevelControls.SetActive(true);
             ControlsActive = true;
         }
@@ -56,11 +73,11 @@ public class FalcionInstructions : MonoBehaviour
         {
             LevelControls.SetActive(false);
             ControlsActive = false;
-            Destroy(LevelControls);
+            //Destroy(LevelControls);
             Time.timeScale = 1f;
             InstructionsActive = false;
         }
-
+        */
     }
  
 }

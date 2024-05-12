@@ -117,7 +117,8 @@ public class RBplayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontalInput, 0f, 0f).normalized;
-
+        PlayerRB.velocity = new Vector3(horizontalInput * walkSpeed, PlayerRB.velocity.y, PlayerRB.velocity.z);
+        /*
         if(direction.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z)* Mathf.Rad2Deg + cam.eulerAngles.y;
@@ -134,7 +135,7 @@ public class RBplayerMovement : MonoBehaviour
 
        
         
-        } 
+        } */
     }
     private void SpeedControl()
     {
