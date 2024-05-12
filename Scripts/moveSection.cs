@@ -21,7 +21,6 @@ public class moveSection : MonoBehaviour
     [SerializeField] private Transform ParentObject;
     private int RandomFeatherNo;
     private Vector3 FeatherSpawnPoint;
-    public bool SpeedIncrease;
 
 
 
@@ -34,20 +33,18 @@ public class moveSection : MonoBehaviour
        SpeedObject = FindObjectOfType<SectionSpeed>();
         Destroy(gameObject, 35);
         if(RiseOnStart)
-        StartCoroutine(Rise());
+            StartCoroutine(Rise());
+        /*
         NoOfSections = RandomSection.Length;
         RandomFeatherNo = Random.Range(0, 5);
-       
-
-
+        */
     }
 
     // Update is called once per frame
     void Update()
     {
-        SpeedCheck();
         
-        FeatherSpawnPoint = Spawnpoints[RandomFeatherNo].transform.position;
+        
         RandomNo = Random.Range(0, NoOfSections);
         speed = SpeedObject.speed;
         transform.position += new Vector3(0, 0, -2) * speed * Time.deltaTime;
@@ -59,46 +56,38 @@ public class moveSection : MonoBehaviour
                 SpeedParticle.Play();
             }*/
  
-        if(transform.position.z <= SpawnPoint && !SectionSpawned)
+        /*if(transform.position.z <= SpawnPoint && !SectionSpawned)
         {
-            if(SpeedObject.speed <= 50 && !SpeedIncrease)
+            if(SpeedObject.SectionSpeedIncrease)
             {
                 SpawnedSection = Instantiate(RandomSection[RandomNo], new Vector3(0, -60, 139), Quaternion.identity) as GameObject;
-            SpawnedSection.GetComponent<moveSection>().RiseOnStart = true;
+                moveSection newSection = SpawnedSection.GetComponent<moveSection>();
+                newSection.RiseOnStart = true;
+                FeatherSpawnPoint = newSection.Spawnpoints[RandomFeatherNo].transform.position;
                 GameObject SpawnedFeather = Instantiate(SpawnedFeathers, FeatherSpawnPoint, Quaternion.identity);
-            SpawnedFeather.transform.parent = SpawnedSection.transform;
+                SpawnedFeather.transform.parent = SpawnedSection.transform;
             }
-            else if(SpeedObject.speed >= 60 && SpeedIncrease)
+            else if(!SpeedObject.SectionSpeedIncrease)
             {
                 SpawnedSection = Instantiate(RandomSection[2], new Vector3(0, -60, 139), Quaternion.identity) as GameObject;
                 SpawnedSection.GetComponent<moveSection>().RiseOnStart = true;
             }
             
             SectionSpawned = true;
-            
+          
 
        
-        }
+        }*/
         if(transform.position.z <= DestroyPoint)
         {
             Destroy(gameObject);
         }
 
-
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-
-        if (other.gameObject.CompareTag("Destroy"))
-        {
-            Destroy(gameObject);
-        }
     }
     IEnumerator Rise()
     {
         for (int i = 0; i < 20; i++)
         {
-          
             transform.Translate(0f, 3f, 0f);
             if (SpeedObject.speed > 50) 
                 yield return new WaitForSeconds(0.001f);
@@ -106,15 +95,6 @@ public class moveSection : MonoBehaviour
                 yield return new WaitForSeconds(0.05f);
         }
         yield break;
-    }
-    void SpeedCheck()
-    {
-        if (SpeedObject.speed >= 60)
-        {
-            SpeedIncrease = true;
-        }
-        else
-            SpeedIncrease = false;
     }
   
  

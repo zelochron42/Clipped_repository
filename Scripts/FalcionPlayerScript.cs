@@ -34,6 +34,7 @@ public class FalcionPlayerScript : MonoBehaviour
     {
         healthBar.value = PLayerHealth;
         SpeedObject = FindObjectOfType<SectionSpeed>();
+        SpeedObject.speedDecrease.AddListener(StopBeingFast);
 
         //invulnerability code
         Renderer[] allRenders = GetComponentsInChildren<Renderer>();
@@ -46,7 +47,11 @@ public class FalcionPlayerScript : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+    private void StopBeingFast() {
+        DashInvul = false;
+        blinkTime = 0.1f;
+        StaminaLoss = 0.25f;
+    }
     void FixedUpdate()
     {
         if(Time.timeScale == 0)
@@ -64,21 +69,20 @@ public class FalcionPlayerScript : MonoBehaviour
         } 
         healthBar.value = PLayerHealth;
         StaminaBar.value = StaminaAmount;
-        StaminaAmount -= StaminaLoss;
+        StaminaAmount = Mathf.Max(0f, StaminaAmount - StaminaLoss);
         BlinkEffect();
-        if (Input.GetButton("Fire2") && StaminaAmount >=750)
+        if (SpeedObject.SectionSpeedIncrease)
         {
             DashInvul = true;
             blinkTime = 0.05f;
             StaminaLoss = 4f;
-        }
-        if (Input.GetKey(KeyCode.E) || SpeedObject.speed <= 50 && SpeedObject.SectionSpeedIncrease)
+        }/*else if (!SpeedObject.SectionSpeedIncrease)
         {
             Debug.Log("E Pressed!");
             DashInvul = false;
             blinkTime = 0.1f;
-            StaminaLoss = 0.5f;
-        }
+            StaminaLoss = 0.25f;
+        }*/
     }
     private void OnTriggerEnter(Collider other)
     {

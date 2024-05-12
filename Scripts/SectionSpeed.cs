@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SectionSpeed : MonoBehaviour
 {
    public float speed;
     private FalcionPlayerScript StaminaCount;
     public bool SectionSpeedIncrease;
+    public UnityEvent speedDecrease;
     //[SerializeField] [Tooltip("Limited Boost time")] private bool BoostTime = 10f;
     void Start()
     {
@@ -38,11 +40,15 @@ public class SectionSpeed : MonoBehaviour
         else if (StaminaCount.StaminaAmount <= 249)
         {
             speed = 30;
-            SectionSpeedIncrease = true;
+            if (SectionSpeedIncrease)
+                speedDecrease.Invoke();
+            SectionSpeedIncrease = false;
         }
         else 
         { 
             speed = 50;
+            if (SectionSpeedIncrease)
+                speedDecrease.Invoke();
             SectionSpeedIncrease = false;
         }
        
