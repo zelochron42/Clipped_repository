@@ -18,14 +18,14 @@ public class FalcionMoveScript : MonoBehaviour
         transform.position += new Vector3(0, 0, 2) * speed * Time.deltaTime;
         if (SpeedObject.speed >= 51 && SpeedObject.speed <= 70)
         {
-            speed = -1.0f;
+            speed = -0.7f;
         }
         else if(SpeedObject.speed >= 100)
         {
             speed = -3f;
         }
         else
-            speed = 1.0f;
+            speed = 0.7f;
     }
     private void OnTriggerEnter(Collider other)
     {

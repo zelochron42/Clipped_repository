@@ -68,7 +68,7 @@ public class moveSection : MonoBehaviour
                 GameObject SpawnedFeather = Instantiate(SpawnedFeathers, FeatherSpawnPoint, Quaternion.identity);
             SpawnedFeather.transform.parent = SpawnedSection.transform;
             }
-            else if(SpeedObject.speed >= 60)
+            else if(SpeedObject.speed >= 60 && SpeedIncrease)
             {
                 SpawnedSection = Instantiate(RandomSection[2], new Vector3(0, -60, 139), Quaternion.identity) as GameObject;
                 SpawnedSection.GetComponent<moveSection>().RiseOnStart = true;
