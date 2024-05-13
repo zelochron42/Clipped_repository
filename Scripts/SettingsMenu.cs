@@ -8,7 +8,7 @@ public class SettingsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
     Resolution[] resolutions;
-    List<Resolution> culledResolutions
+    List<Resolution> culledResolutions;
     public TMPro.TMP_Dropdown resolutionDropDown;
     void Start()
     {
@@ -20,7 +20,7 @@ public class SettingsMenu : MonoBehaviour
         for(int i = 0; i< resolutions.Length; i++)
         {
             
-            if (!culledResolutions.Contains(resolutions[i]) {
+            if (!culledResolutions.Contains(resolutions[i])) {
                 culledResolutions.Add(resolutions[i]);
                 string option = resolutions[i].width + " x " + resolutions[i].height;
                 options.Add(option);
