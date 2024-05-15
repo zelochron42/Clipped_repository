@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FalcionMoveScript : MonoBehaviour
 {
     private float speed;
     private SectionSpeed SpeedObject;
+    public GameObject FalcionWinsScreen;
+    private bool FailScreenAction;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,14 +29,29 @@ public class FalcionMoveScript : MonoBehaviour
         }
         else
             speed = 0.7f;
+
+        ReStartScene();
     }
+ 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("NextSceneTrigger"))
         {
             Time.timeScale = 0;
             Debug.Log("FalcionWins!!!1");
+            FalcionWinsScreen.SetActive(true);
+            FailScreenAction = true;
 
+        }
+    }
+    void ReStartScene()
+    {
+        if (FailScreenAction)
+        {
+            if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump"))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
     }
 }

@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotation: {x: 0, y: 10, z: 0}
-  _speed: 10
+  _speed: 15
   _Translate: {x: 0, y: 0, z: 0}
   _TranslateSpeed: 0
 --- !u!1 &3719572096446213219
@@ -390,7 +390,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4171350974932748261}
   m_LocalRotation: {x: -0.005751575, y: -0.0055165617, z: 0.7080663, w: 0.70610106}
-  m_LocalPosition: {x: -6.180397, y: 1.6409445, z: 0.8028183}
+  m_LocalPosition: {x: -6.180397, y: -0, z: 0.8028183}
   m_LocalScale: {x: 1.1268032, y: 10.167495, z: 3.6024277}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -592,7 +592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotation: {x: 0, y: 10, z: 0}
-  _speed: 10
+  _speed: 15
   _Translate: {x: 0, y: 0, z: 0}
   _TranslateSpeed: 0
 --- !u!1 &5018183066657016431
@@ -790,7 +790,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6417148696628645400}
   m_LocalRotation: {x: -0.005751575, y: -0.0055165617, z: 0.7080663, w: 0.70610106}
-  m_LocalPosition: {x: -6.180397, y: 1.6409445, z: 0.8028183}
+  m_LocalPosition: {x: -6.180397, y: 0.7, z: 0.8028183}
   m_LocalScale: {x: 1.1268032, y: 10.167495, z: 3.6024277}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1652,7 +1652,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3721
+  m_VersionIndex: 3724
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -39191,6 +39191,7 @@ MonoBehaviour:
   - {fileID: 7098390190423166381}
   - {fileID: 7098390190423166381, guid: c53b1498eb702cb4e833844051f000a8, type: 3}
   - {fileID: 7098390190423166381, guid: 600de055796ca4943a1e81776f48116e, type: 3}
+  - {fileID: 7098390190423166381, guid: 6ee02fe10fb82e542804dabb8c72a441, type: 3}
   NoOfSections: 0
   Spawnpoints:
   - {fileID: 4864091878065312184}
@@ -39200,7 +39201,6 @@ MonoBehaviour:
   - {fileID: 6535351249125280442}
   SpawnedFeathers: {fileID: 6525169847328923659, guid: 09030d3e1616d6141a240f33e52806ed, type: 3}
   ParentObject: {fileID: 7098390190423166380}
-  SpeedIncrease: 0
 --- !u!1 &7098390190582996173
 GameObject:
   m_ObjectHideFlags: 0
@@ -41149,7 +41149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3489342201600464655, guid: 5be5f7498c377ac49ab229d40b7205db, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.9
+      value: 7.78
       objectReference: {fileID: 0}
     - target: {fileID: 3489342201600464655, guid: 5be5f7498c377ac49ab229d40b7205db, type: 3}
       propertyPath: m_LocalPosition.z

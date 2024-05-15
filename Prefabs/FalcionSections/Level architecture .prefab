@@ -66002,6 +66002,7 @@ MonoBehaviour:
   - {fileID: 7098390190423166381, guid: 5d2c8ece1e51bdd4fa85c91be86b75ff, type: 3}
   - {fileID: 7098390190423166381, guid: c53b1498eb702cb4e833844051f000a8, type: 3}
   - {fileID: 7098390190423166381}
+  - {fileID: 7098390190423166381, guid: 6ee02fe10fb82e542804dabb8c72a441, type: 3}
   NoOfSections: 3
   Spawnpoints:
   - {fileID: 1984851406643823275}
@@ -66010,7 +66011,6 @@ MonoBehaviour:
   - {fileID: 8272916154933897842}
   SpawnedFeathers: {fileID: 6525169847328923659, guid: 09030d3e1616d6141a240f33e52806ed, type: 3}
   ParentObject: {fileID: 7098390190423166380}
-  SpeedIncrease: 0
 --- !u!1 &7098390190425408754
 GameObject:
   m_ObjectHideFlags: 0
