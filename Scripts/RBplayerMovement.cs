@@ -87,7 +87,7 @@ public class RBplayerMovement : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         //verticalInput = Input.GetAxisRaw("Vertical");
-        if(Input.GetKey(jumpKey) && ReadyToJump && grounded)
+        if((Input.GetKey(jumpKey) || Input.GetButton("Jump")) && ReadyToJump && grounded)
         {
             ReadyToJump = false;
             Jump();

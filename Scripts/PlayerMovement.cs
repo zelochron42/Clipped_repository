@@ -106,7 +106,10 @@ public class PlayerMovement : MonoBehaviour
             rb2d.gravityScale = gravityScale;
             rb2d.velocity = Vector2.zero;
             rb2d.sharedMaterial = friction;
+            hoverParticles.Stop();
             movementControl = 0f;
+            if (isDashing)
+                EndDash.Invoke();
             StartIdle.Invoke();
         }
     }
