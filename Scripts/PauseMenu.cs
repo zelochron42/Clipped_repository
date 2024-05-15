@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
     // Start is called before the first frame update
     public static bool isPaused = false;
     public GameObject pauseMenu;
+    public GameObject settingsMenu;
     float hitStopTime = 0.05f;
 
     private void Awake() {
@@ -45,6 +46,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void ResumeGame()
     {
+        settingsMenu.SetActive(false);
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;

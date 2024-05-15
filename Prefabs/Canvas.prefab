@@ -4952,6 +4952,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 2973512549139297991}
+  settingsMenu: {fileID: 2973512548298283391}
 --- !u!114 &2973512549007942250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5021,6 +5022,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 2973512549139297991}
+  settingsMenu: {fileID: 2973512548298283391}
 --- !u!1 &2973512549145332696
 GameObject:
   m_ObjectHideFlags: 0

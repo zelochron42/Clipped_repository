@@ -995,7 +995,7 @@ MonoBehaviour:
     m_SelectOnUp: {fileID: 373959134}
     m_SelectOnDown: {fileID: 732287889}
     m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 22007573}
+    m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
